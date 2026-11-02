@@ -1,0 +1,25 @@
+{
+  "current": { "id": "s01e01", "recording": "2026-11-04" },
+  "upNext": "s01e02",
+  "seasons": [
+    {
+      "season": 1,
+      "years": "1989–90",
+      "episodes": [
+        { "id": "s01e01", "episode": 1, "title": "Simpsons Roasting on an Open Fire", "ready": true },
+        { "id": "s01e02", "episode": 2, "title": "Bart the Genius", "ready": false },
+        { "id": "s01e03", "episode": 3, "title": "Homer's Odyssey", "ready": false },
+        { "id": "s01e04", "episode": 4, "title": "There's No Disgrace Like Home", "ready": false },
+        { "id": "s01e05", "episode": 5, "title": "Bart the General", "ready": false },
+        { "id": "s01e06", "episode": 6, "title": "Moaning Lisa", "ready": false },
+        { "id": "s01e07", "episode": 7, "title": "The Call of the Simpsons", "ready": false },
+        { "id": "s01e08", "episode": 8, "title": "The Telltale Head", "ready": false },
+        { "id": "s01e09", "episode": 9, "title": "Life on the Fast Lane", "ready": false },
+        { "id": "s01e10", "episode": 10, "title": "Homer's Night Out", "ready": false },
+        { "id": "s01e11", "episode": 11, "title": "The Crepes of Wrath", "ready": false },
+        { "id": "s01e12", "episode": 12, "title": "Krusty Gets Busted", "ready": false },
+        { "id": "s01e13", "episode": 13, "title": "Some Enchanted Evening", "ready": false }
+      ]
+    }
+  ]
+}

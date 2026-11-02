@@ -1,0 +1,153 @@
+{
+  "id": "s01e01",
+  "season": 1,
+  "episode": 1,
+  "prodCode": "7G08",
+  "title": "Simpsons Roasting on an Open Fire",
+  "airDate": "1989-12-17",
+  "writer": "Mimi Pond",
+  "director": "David Silverman",
+  "runtime": "23 min",
+  "still": null,
+  "sections": [
+    {
+      "id": "plot",
+      "title": "Plot Refresher",
+      "style": "steps",
+      "items": [
+        { "text": "The family goes to the Springfield Elementary Christmas pageant, where Bart sings a mocking version of a carol and Lisa performs in \"Santas of Many Lands.\"", "src": ["wiki"] },
+        { "text": "Bart and Lisa write letters to Santa. Lisa asks for a pony; Marge says there isn't room on the sleigh. Bart asks for a tattoo, which his parents forbid.", "src": ["wiki"] },
+        { "text": "At the mall, Bart sneaks off and starts getting a tattoo that reads \"Mother,\" figuring Marge will love it.", "src": ["wiki"] },
+        { "text": "Marge catches him mid-tattoo and spends the whole Christmas budget having it lasered off, counting on Homer's bonus to cover the gifts.", "src": ["wiki"] },
+        { "text": "Mr. Burns cancels the plant's Christmas bonus over the PA. Homer keeps it from the family.", "src": ["wiki"] },
+        { "text": "On Barney's suggestion, Homer secretly takes a job as a mall Santa.", "src": ["wiki"] },
+        { "text": "On Christmas Eve, Bart yanks off the mall Santa's beard and finds Homer. Instead of being angry, he's touched that his dad was moonlighting for presents.", "src": ["wiki"] },
+        { "text": "Homer's Santa paycheck is gutted by deductions for training and his uniform. Barney tips him and Bart off to the dog track.", "src": ["wiki"] },
+        { "text": "At Springfield Downs, Homer bets everything on a 99-to-1 long shot named Santa's Little Helper, taking the name as a sign. The dog finishes last and its owner dumps him.", "src": ["wiki"] },
+        { "text": "Bart begs to keep the dog. Back home, the new pet interrupts Homer's confession, and the family ends the night singing \"Rudolph the Red-Nosed Reindeer.\"", "src": ["wiki"] }
+      ]
+    },
+    {
+      "id": "eggs",
+      "title": "Easter Eggs / In-Jokes",
+      "style": "items",
+      "note": "In episode order where known. Timestamps marked ~ are approximate and come from MovieMistakes. Anything backed by only one fan source is marked Unconfirmed.",
+      "items": [
+        { "tag": "Reference", "time": null, "text": "The title plays on \"The Christmas Song,\" better known by its opening line about chestnuts. Staff writer Al Jean came up with it.", "src": ["wiki", "cracked35", "wsrefs"], "confirmed": true },
+        { "tag": "In-joke", "time": null, "text": "The Batman-themed \"Jingle Bells\" Bart sings at the pageant gets credited to the show all the time, but Groening says they didn't invent it; it was already a schoolyard staple.", "src": ["wiki", "mentalfloss", "snpp"], "confirmed": true },
+        { "tag": "Setup", "time": null, "text": "Marge brags that Bart sings like an angel right before he launches into the Batman carol.", "src": ["tvtropes"], "confirmed": false },
+        { "tag": "In-joke", "time": null, "text": "The \"Santas of Many Lands\" pageant segment comes from Groening's own second-grade report on Christmas in Russia, which he'd also used in his Life in Hell comic.", "src": ["wiki", "mentalfloss", "wikisimpsons"], "confirmed": true },
+        { "tag": "Reference", "time": null, "text": "One pageant \"Santa,\" Hochiashi, is presented as Japan's. A fan note in the SNPP capsule says that isn't a real Japanese Santa figure.", "src": ["snpp"], "confirmed": false },
+        { "tag": "Sight gag", "time": null, "text": "Marge parks in section ZZ of the mall lot, and the lot's signs skip straight from Z to ZZ.", "src": ["snpp"], "confirmed": false },
+        { "tag": "Sight gag", "time": null, "text": "In the power plant shot, every worker is eating a donut, including one in a full radiation suit.", "src": ["snpp"], "confirmed": false },
+        { "tag": "Reference", "time": null, "text": "Bart strapped down while the tattoo-removal laser creeps toward him is a Goldfinger homage. One early guidebook called the laser gag the only real hint of what the show would become.", "src": ["wsrefs", "tvtropes", "wiki"], "confirmed": true },
+        { "tag": "Sight gag", "time": null, "text": "The \"O\" in the Moe's sign is a Christmas wreath.", "src": ["snpp"], "confirmed": false },
+        { "tag": "Running gag", "time": null, "text": "Marge stashes the Christmas money jar inside her beehive.", "src": ["tvtropes"], "confirmed": false },
+        { "tag": "Reference", "time": null, "text": "Bart lists TV Christmas miracles: Tiny Tim, Charlie Brown and the Smurfs. Homer's reply is to ask who Tiny Tim is.", "src": ["snpp", "tvtropes", "wsrefs"], "confirmed": true },
+        { "tag": "Reference", "time": null, "text": "Bart's rude crack at the mall Santa echoes a moment in Miracle on 34th Street.", "src": ["wsrefs"], "confirmed": false },
+        { "tag": "Goof", "time": "~14:10", "text": "Lewis changes skin color between shots when Milhouse dares Bart to pull Santa's beard.", "src": ["snpp", "moviemistakes"], "confirmed": true },
+        { "tag": "Goof", "time": null, "text": "Bart pulls off Homer's beard in the mall, but it's back on when they walk into Santa's workshop.", "src": ["moviemistakes"], "confirmed": false },
+        { "tag": "Sight gag", "time": null, "text": "Homer's Santa paycheck shrinks as the deductions are read off, ending at $13.", "src": ["tvtropes", "wiki"], "confirmed": false },
+        { "tag": "Sight gag", "time": null, "text": "The fourth race lineup: Whirlwind, Quadruped, Dog-o-War (a pun on the racehorse Man o' War), Fido, and Santa's Little Helper.", "src": ["snpp", "wsrefs", "tvtropes"], "confirmed": true },
+        { "tag": "Sight gag", "time": null, "text": "Santa's Little Helper races wearing number 8.", "src": ["cracked35"], "confirmed": false },
+        { "tag": "Goof", "time": "~21:40", "text": "Right after Homer brings the dog home, the background behind Homer and Marge is briefly upside down: a lamp seems to hang from the ceiling.", "src": ["moviemistakes"], "confirmed": false },
+        { "tag": "Sight gag", "time": null, "text": "In the carolers' wide shot of the street, every light has burnt out except one blinking on the Simpsons' roof.", "src": ["snpp"], "confirmed": false },
+        { "tag": "Running gag", "time": null, "text": "Maggie falls over five times in the episode, by one fan's count.", "src": ["snpp"], "confirmed": false },
+        { "tag": "Reference", "time": null, "text": "The plot mirrors O. Henry's \"The Gift of the Magi\": Homer loses the bonus while Marge spends the gift money on Bart's tattoo.", "src": ["wsrefs"], "confirmed": false },
+        { "tag": "Reference", "time": null, "text": "Fan wiki editors note the storyline is similar to the All in the Family episode \"Christmas Day at the Bunkers.\"", "src": ["wsrefs"], "confirmed": false }
+      ]
+    },
+    {
+      "id": "moment",
+      "title": "The Moment",
+      "style": "items",
+      "items": [
+        { "tag": "TV in 1989", "text": "Fox was the scrappy fourth network: announced in 1986, on the air with one night of shows in 1987, and still clearly behind NBC, ABC and CBS. It reached only about four-fifths of the country.", "src": ["ebsco"] },
+        { "tag": "TV in 1989", "text": "Prime-time cartoons were basically extinct. The Simpsons was the first prime-time animated series in a generation; Mental Floss notes the only other one since The Flintstones was Wait Till Your Father Gets Home (1972–74).", "src": ["ebsco", "mentalfloss"] },
+        { "tag": "TV in 1989", "text": "Fox's other shows at the time included Married... with Children, 21 Jump Street and It's Garry Shandling's Show. The network was chasing 18-to-34-year-olds by taking more risks than the Big Three.", "src": ["ebsco"] },
+        { "tag": "Ratings", "text": "It finished 30th for the week of Dec. 11–17, 1989, with a 14.5 Nielsen rating, about 13.4 million homes. That made it Fox's second-highest-rated show to that point. Wikipedia's season page puts it at 26.7 million viewers.", "src": ["wiki", "season1"] },
+        { "tag": "Ratings", "text": "Fox re-ran it on Dec. 23. The weekly series started Jan. 14, 1990, and cracked Nielsen's top 15 within two months. Season 1 aired Sundays at 8:30, not the 8:00 slot it later held.", "src": ["ebsco", "cracked35"] },
+        { "tag": "The world", "text": "It aired about five weeks after the Berlin Wall fell (Nov. 9, 1989), during the revolutions sweeping Eastern Europe. Three days later, on Dec. 20, the U.S. invaded Panama to arrest Manuel Noriega.", "src": ["adst"] },
+        { "tag": "Worth discussing", "text": "Our own connection, not a sourced claim: Groening's pageant bit came from being told as a kid that communist Russia had no Christmas, and the episode aired just as communism was collapsing across Eastern Europe.", "src": ["cracked35", "adst"] },
+        { "tag": "What came next", "text": "Within months, Bart was everywhere: Rolling Stone and Newsweek covers, T-shirts and talking dolls. Some schools banned the \"Underachiever and Proud of It\" shirt, and drug czar William Bennett criticized Bart before backing off.", "src": ["ebsco"] }
+      ]
+    },
+    {
+      "id": "writers",
+      "title": "Writers' Room",
+      "style": "items",
+      "items": [
+        { "tag": "The writer", "text": "Mimi Pond was a cartoonist, not a TV writer. She met Groening through artist Gary Panter, and says she was the only cartoonist friend who said yes when Groening asked people to write episodes. It's her only Simpsons script.", "src": ["cracked35", "wiki"] },
+        { "tag": "The writer", "text": "Pond says Sam Simon suggested a Christmas episode, even though she disliked Christmas, and that Lisa's pony wish was the only part drawn from her real life.", "src": ["cracked35"] },
+        { "tag": "The writer", "text": "Pond has said she was never invited onto the staff and later learned of a no-women-on-staff policy, which she tied to Sam Simon. Treat this as her account.", "src": ["cracked35", "wiki"] },
+        { "tag": "Why it aired first", "text": "The planned premiere, \"Some Enchanted Evening,\" came back from the Korean animation studio about six months later looking so bad that roughly 70% had to be redone. Fox pushed the debut from fall to December, and the Christmas episode, the eighth produced, went first.", "src": ["slashfilm", "season1", "wiki"] },
+        { "tag": "Original idea", "text": "Al Jean says the first story was going to be Homer worrying that Marge would get drunk at his office party and embarrass him.", "src": ["mentalfloss", "wikisimpsons"] },
+        { "tag": "Fox vs. the producers", "text": "Fox doubted a cartoon could hold viewers for a half hour and proposed three seven-minute shorts plus four specials. The producers held out for 13 full episodes, and James L. Brooks got a clause keeping Fox from meddling with content.", "src": ["wiki"] },
+        { "tag": "No opening", "text": "There's no opening title sequence. Groening added it starting with \"Bart the Genius\" because a longer intro meant less animation to make each week.", "src": ["wiki", "mentalfloss"] },
+        { "tag": "The crew", "text": "David Silverman directed. Rich Moore storyboarded and designed Ned Flanders. Eric Stefani, a No Doubt founder and Gwen Stefani's brother, did layouts on several scenes.", "src": ["wiki", "mentalfloss"] },
+        { "tag": "Censors", "text": "Fox's censors flagged the word \"groin,\" and the producers kept it anyway. There was also worry that Homer stealing a Christmas tree would make him too unlikable.", "src": ["cracked35"] },
+        { "tag": "The dog", "text": "Al Jean says the name Santa's Little Helper was picked just to set up Homer's Christmas Eve bet, with no long-term plan. Groening says they painted themselves into a corner and were stuck with a dog.", "src": ["cracked35"] },
+        { "tag": "The dog", "text": "Viewers later thanked the show for raising awareness of abandoned racing greyhounds, which the writers say they didn't know was a real issue.", "src": ["mentalfloss", "cracked35"] },
+        { "tag": "Room humor", "text": "Al Jean jokes that the show \"jumped the shark\" in act three of its very first episode.", "src": ["irishtimes"] },
+        { "tag": "Premiere night", "text": "The staff threw the premiere party at a bowling alley, in custom Simpsons bowling shirts. Pond got a crew jacket and says she was mobbed on a New York subway by people who wanted it.", "src": ["cracked35", "swartzwelder"] }
+      ]
+    },
+    {
+      "id": "commentary",
+      "title": "Commentary Notes",
+      "style": "items",
+      "note": "The commentary isn't online. These are stories from it as reported by other sources. Worth a listen to confirm and to find more.",
+      "items": [
+        { "tag": "On the track", "text": "Matt Groening, James L. Brooks and David Silverman. It's only on The Complete First Season DVD (2001).", "src": ["wsdvd", "wiki"] },
+        { "tag": "Groening", "text": "On first seeing the botched \"Some Enchanted Evening\" animation: watching it was painful. Brooks called the footage bad.", "src": ["slashfilm"] },
+        { "tag": "Silverman", "text": "Lisa looks naked from the waist down in her pageant dance. She was supposed to be in a body stocking that the overseas animators never colored in.", "src": ["wiki", "cracked35"] },
+        { "tag": "Groening", "text": "Barney was first designed with yellow hair matching his skin, then changed because only the Simpson family was supposed to have that.", "src": ["wiki", "mentalfloss"] },
+        { "tag": "Groening", "text": "Because this was produced eighth, the animation is noticeably more polished, and the characters more settled, than the episodes that aired right after it.", "src": ["wiki"] },
+        { "tag": "Groening", "text": "Santa's Little Helper is missing from \"Bart the Genius\" because this episode was originally meant to air eighth.", "src": ["mentalfloss"] }
+      ]
+    },
+    {
+      "id": "firsts",
+      "title": "Firsts & Guest Voices",
+      "style": "items",
+      "items": [
+        { "tag": "Firsts", "text": "First full-length episode ever aired, though not the first produced.", "src": ["wiki"] },
+        { "tag": "Debuts", "text": "Principal Skinner, Milhouse, Ralph, Sherri and Terri, Moe, Mr. Burns, Barney, Patty and Selma, Grampa, Ned and Todd Flanders, Mr. Largo, Lewis, Snowball II and Santa's Little Helper all first appear here. Snowball I is first mentioned. Smithers is heard on the plant PA but never seen.", "src": ["wiki"] },
+        { "tag": "Firsts", "text": "The Homer vs. Ned Flanders rivalry starts here: Homer's sad light display next to Ned's elaborate one.", "src": ["tvtropes"] },
+        { "tag": "Before the show", "text": "Milhouse had already shown up in a 1988 Butterfinger commercial. And Bart's \"I'm Bart Simpson, who the hell are you?\" was first said in a Tracey Ullman short.", "src": ["mentalfloss", "cracked35"] },
+        { "tag": "Early versions", "text": "Ralph is voiced by Pamela Hayden here; Nancy Cartwright took over later. Moe has black hair, Barney is blond, and Mr. Burns sounds different.", "src": ["cracked35", "tvtropes"] },
+        { "tag": "Guest voices", "text": "None of the sources list a guest star for this one. Season 1's main voice cast: Dan Castellaneta, Julie Kavner, Nancy Cartwright, Yeardley Smith, Hank Azaria, Pamela Hayden and Harry Shearer. Who voiced the early, different-sounding Mr. Burns here is worth checking in the credits.", "src": ["season1", "wsappear"] },
+        { "tag": "Payoffs later", "text": "Lisa finally gets a pony in Season 3's \"Lisa's Pony.\" The dog's old track owner returns in \"Old Yeller-Belly\" (S14), \"The Way of the Dog\" (S31) flashes back to this episode, and an adult Bart time-travels into it in \"Lisa the Boy Scout\" (S34).", "src": ["mentalfloss", "wiki", "cracked35"] }
+      ]
+    },
+    {
+      "id": "reception",
+      "title": "Reception & Legacy",
+      "style": "items",
+      "items": [
+        { "tag": "Awards", "text": "Two 1990 Emmy nominations: Outstanding Animated Program (it lost to the show's own \"Life on the Fast Lane\") and Outstanding Editing for a Miniseries or Special.", "src": ["wiki", "wikisimpsons"] },
+        { "tag": "Critics", "text": "Reviews generally call it solid but not yet great: IGN said it wasn't the funniest but was groundbreaking, and The A.V. Club's Nathan Rabin found it slower than later episodes but already subversive.", "src": ["wiki"] },
+        { "tag": "Rankings", "text": "IGN ranked it No. 4 among TV holiday specials in 2009, and Al Jean named it one of five essential episodes in 2014.", "src": ["wiki"] },
+        { "tag": "Home video", "text": "Released on VHS in 1991 as The Simpsons Christmas Special, the show's first home-video release. For the 35th anniversary in 2024, Disney+ briefly posted the full episode on YouTube.", "src": ["wiki"] }
+      ]
+    }
+  ],
+  "sources": {
+    "wiki": { "title": "Wikipedia: Simpsons Roasting on an Open Fire", "url": "https://en.wikipedia.org/wiki/Simpsons_Roasting_on_an_Open_Fire" },
+    "season1": { "title": "Wikipedia: The Simpsons season 1", "url": "https://en.wikipedia.org/wiki/The_Simpsons_season_1" },
+    "snpp": { "title": "The Simpsons Archive (SNPP): 7G08 episode capsule", "url": "https://simpsonsarchive.com/episodes/7G08.txt" },
+    "wikisimpsons": { "title": "Wikisimpsons: Simpsons Roasting on an Open Fire", "url": "https://simpsonswiki.com/wiki/7G08" },
+    "wsrefs": { "title": "Wikisimpsons: References", "url": "https://simpsonswiki.com/wiki/Simpsons_Roasting_on_an_Open_Fire/References" },
+    "wsappear": { "title": "Wikisimpsons: Appearances", "url": "https://simpsonswiki.com/wiki/Simpsons_Roasting_on_an_Open_Fire/Appearances" },
+    "wsdvd": { "title": "Wikisimpsons: DVD features", "url": "https://simpsonswiki.com/wiki/Simpsons_Roasting_on_an_Open_Fire/DVD_features" },
+    "tvtropes": { "title": "TV Tropes: episode recap", "url": "https://tvtropes.org/pmwiki/pmwiki.php/Recap/TheSimpsonsS1E1SimpsonsRoastingOnAnOpenFire" },
+    "moviemistakes": { "title": "MovieMistakes: The Simpsons season 1", "url": "https://moviemistakes.com/tv3501/season1" },
+    "cracked35": { "title": "Cracked: 35 trivia tidbits about the first Simpsons episode", "url": "https://cracked.com/article_44790_35-trivia-tidbits-about-the-first-simpsons-episode-ever-on-its-35th-anniversary.html" },
+    "mentalfloss": { "title": "Mental Floss: facts about the first episode", "url": "https://www.mentalfloss.com/entertainment/simpsons/17-facts-about-first-episode-simpsons" },
+    "slashfilm": { "title": "/Film: The first episode was almost completely different", "url": "https://slashfilm.com/1623686/the-simpsons-first-episode-change" },
+    "irishtimes": { "title": "The Irish Times: 35 years of The Simpsons", "url": "https://www.irishtimes.com/culture/tv-radio/2024/12/19/we-jumped-the-shark-in-the-very-first-episode-35-years-of-the-simpsons" },
+    "swartzwelder": { "title": "Cracked: the writers' bowling party for the 1989 premiere", "url": "https://cracked.com/article_44818_simpsons-legend-john-swartzwelder-recounts-the-writers-bowling-party-for-the-1989-premiere.html" },
+    "ebsco": { "title": "EBSCO Research Starters: The Simpsons debuts, anchoring Fox", "url": "https://www.ebsco.com/research-starters/arts-and-entertainment/simpsons-debuts-anchoring-fledgling-fox-network" },
+    "adst": { "title": "ADST: 1989, a swift look at an incredible year", "url": "https://adst.org/inside-foggy-bottom/1989-a-swift-look-at-an-incredible-year" }
+  }
+}
