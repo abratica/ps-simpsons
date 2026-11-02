@@ -38,6 +38,12 @@
 
   function epCode(ep) { return "Season " + ep.season + " · Episode " + ep.episode; }
 
+  // The Simpsons on TMDB is series 456; episode pages follow /season/N/episode/N.
+  function tmdbHTML(ep) {
+    var url = "https://www.themoviedb.org/tv/456/season/" + ep.season + "/episode/" + ep.episode;
+    return '<a class="extlink" href="' + url + '" target="_blank" rel="noopener">View on TMDB <span aria-hidden="true">↗</span></a>';
+  }
+
   function stillHTML(ep) {
     if (ep.still) return '<div class="still"><img src="' + esc(ep.still) + '" alt="Still from ' + esc(ep.title) + '"></div>';
     return '<div class="still" role="img" aria-label="Episode still placeholder">Episode still</div>';
@@ -129,7 +135,7 @@
 
       var html = stillHTML(ep) +
         '<p class="epnum">' + esc(epCode(ep).toUpperCase()) + '</p>' +
-        '<h2 class="eptitle">' + esc(ep.title) + '</h2>' + metaHTML(ep) +
+        '<h2 class="eptitle">' + esc(ep.title) + '</h2>' + metaHTML(ep) + tmdbHTML(ep) +
         '<div class="sections">';
 
       ep.sections.forEach(function (sec, i) {
