@@ -44,8 +44,19 @@
     return '<a class="extlink" href="' + url + '" target="_blank" rel="noopener">View on TMDB <span aria-hidden="true">↗</span></a>';
   }
 
+  // TMDB still sizes: w92, w185, w300, original. tmdbStill holds the API's still_path, e.g. "/abc123.jpg".
+  var TMDB_IMG = "https://image.tmdb.org/t/p/";
+
   function stillHTML(ep) {
-    if (ep.still) return '<div class="still"><img src="' + esc(ep.still) + '" alt="Still from ' + esc(ep.title) + '"></div>';
+    var alt = 'alt="Still from ' + esc(ep.title) + '"';
+    // Andrew's own screenshot wins; TMDB's still is the fallback.
+    if (ep.still) return '<div class="still"><img src="' + esc(ep.still) + '" ' + alt + '></div>';
+    if (ep.tmdbStill && /^\/[\w.-]+\.(jpg|jpeg|png|webp)$/i.test(ep.tmdbStill)) {
+      var p = esc(ep.tmdbStill);
+      return '<div class="still"><img src="' + TMDB_IMG + 'w300' + p + '" srcset="' +
+        TMDB_IMG + 'w300' + p + ' 300w, ' + TMDB_IMG + 'original' + p + ' 1920w" ' +
+        'sizes="(max-width: 640px) 100vw, 608px" loading="lazy" decoding="async" ' + alt + '></div>';
+    }
     return '<div class="still" role="img" aria-label="Episode still placeholder">Episode still</div>';
   }
 

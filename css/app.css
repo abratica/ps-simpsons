@@ -128,3 +128,6 @@ details[open] > summary .chev { transform: rotate(90deg); }
 .cites a { text-decoration: none; margin-left: 2px; }
 .srclist { margin: 0; padding-left: 22px; font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
 .srclist li:target { background: var(--flag-bg); }
+
+.credit { max-width: 640px; margin: 0 auto; padding: 0 16px 32px; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.credit a { color: inherit; }
