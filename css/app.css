@@ -12,8 +12,13 @@
   --sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --display: "Chewy", system-ui, sans-serif; --hand: "Gloria Hallelujah", system-ui, sans-serif;
 }
+:root[data-theme="dark"] {
+    --page: #111111; --card: #1B1B1B; --ink: #F1F1EF; --muted: #9A9A96; --label: #8E8E89; --rule: #2C2C2A; --soft: #222220;
+    --pill: #262624; --pill-ink: #BDBDB8; --shadow: rgba(0, 0, 0, .3); --link: #F1F1EF;
+    --flag-bg: #3A3000; --flag-ink: #FFE27A;
+}
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --page: #111111; --card: #1B1B1B; --ink: #F1F1EF; --muted: #9A9A96; --label: #8E8E89; --rule: #2C2C2A; --soft: #222220;
     --pill: #262624; --pill-ink: #BDBDB8; --shadow: rgba(0, 0, 0, .3); --link: #F1F1EF;
     --flag-bg: #3A3000; --flag-ink: #FFE27A;
@@ -41,6 +46,23 @@ img { display: block; }
   font-size: 34px; line-height: 1; color: #14213D; text-decoration: none; text-shadow: 0 0 6px rgba(255, 255, 255, .9);
 }
 .back[hidden] { display: none; }
+
+/* Light/dark toggle (same pattern as PS Sports) */
+.theme-btn {
+  position: relative; margin-left: auto; width: 38px; height: 38px; flex: 0 0 38px;
+  display: grid; place-items: center; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255, 255, 255, .78); color: #151515; box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.theme-btn svg { display: none; }
+:root[data-theme="light"] .theme-btn .i-light, :root[data-theme="dark"] .theme-btn .i-dark { display: block; }
+.theme-toast {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); z-index: 70; transform: translateX(-50%);
+  background: #141414; color: #F7F4EE; font-weight: 700; font-size: 13.5px; padding: 8px 14px; border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .25); opacity: 0; transition: opacity 160ms ease; pointer-events: none;
+}
+.theme-toast.show { opacity: 1; }
+:root[data-theme="dark"] .theme-toast { background: #F7F4EE; color: #141414; }
 
 main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 .status { color: var(--muted); text-align: center; margin-top: 48px; }
@@ -110,7 +132,8 @@ main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 .items p { margin: 0; font-size: 15.5px; line-height: 1.5; }
 .itag { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
 .tag { background: color-mix(in srgb, var(--t) 14%, var(--card)); color: var(--t); font-size: 11.5px; font-weight: 800; letter-spacing: .02em; padding: 3px 9px; border-radius: 999px; }
-@media (prefers-color-scheme: dark) { .tag { color: color-mix(in srgb, var(--t) 55%, #fff); background: color-mix(in srgb, var(--t) 28%, var(--card)); } }
+:root[data-theme="dark"] .tag { color: color-mix(in srgb, var(--t) 55%, #fff); background: color-mix(in srgb, var(--t) 28%, var(--card)); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme]) .tag { color: color-mix(in srgb, var(--t) 55%, #fff); background: color-mix(in srgb, var(--t) 28%, var(--card)); } }
 .time { background: var(--soft); color: var(--muted); font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
 .flag { background: var(--flag-bg); color: var(--flag-ink); font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
 .cites { margin-left: 4px; white-space: nowrap; }

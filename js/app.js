@@ -169,6 +169,40 @@
     });
   }
 
+  /* ---------- Light/dark toggle (same pattern as PS Sports) ----------
+     Follows the phone's setting until tapped; the choice is then remembered on this device. */
+  var THEME_KEY = "ps-simpsons-theme";
+  var THEME_LABEL = { light: "Light mode", dark: "Dark mode" };
+  var darkMQ = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  function themePref() {
+    try { var v = localStorage.getItem(THEME_KEY); if (v === "light" || v === "dark") return v; } catch (e) {}
+    return darkMQ && darkMQ.matches ? "dark" : "light";
+  }
+  function applyTheme() {
+    var pref = themePref();
+    document.documentElement.dataset.theme = pref;
+    var btn = document.querySelector(".theme-btn");
+    if (btn) btn.setAttribute("aria-label", THEME_LABEL[pref] + ". Tap for " + (pref === "dark" ? "light" : "dark") + " mode.");
+  }
+  var toastTimer = null;
+  function toast(text) {
+    var el = document.querySelector(".theme-toast");
+    if (!el) { el = document.createElement("div"); el.className = "theme-toast"; el.setAttribute("role", "status"); document.body.appendChild(el); }
+    el.textContent = text;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 1400);
+  }
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".theme-btn")) return;
+    var next = themePref() === "dark" ? "light" : "dark";
+    try { localStorage.setItem(THEME_KEY, next); } catch (err) {}
+    applyTheme();
+    toast(THEME_LABEL[next]);
+  });
+  if (darkMQ && darkMQ.addEventListener) darkMQ.addEventListener("change", applyTheme);
+  applyTheme();
+
   function route() {
     var m = location.hash.match(/^#\/ep\/(s\d{2}e\d{2})$/);
     var p = m ? renderEpisode(m[1]) : renderHome();

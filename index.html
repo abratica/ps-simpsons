@@ -9,7 +9,8 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png?v=3">
 <link rel="apple-touch-icon" href="icons/apple-180.png?v=3">
-<link rel="stylesheet" href="css/app.css?v=15">
+<script>try{var t=localStorage.getItem("ps-simpsons-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="css/app.css?v=16">
 </head>
 <body>
 <header class="masthead">
@@ -17,9 +18,13 @@
   <a class="brand" href="#/" aria-label="PS Simpsons home">
     <picture><source srcset="img/wordmark.webp" type="image/webp"><img class="wordmark" src="img/wordmark.png" alt="PS Simpsons" width="696" height="120"></picture>
   </a>
+  <button class="theme-btn" type="button" aria-label="Change light or dark mode">
+    <svg class="i-light" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></g></svg>
+    <svg class="i-dark" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+  </button>
 </header>
 <main id="app" aria-live="polite"><p class="status">Loading…</p></main>
 <footer class="credit">Episode stills from <a href="https://www.themoviedb.org/tv/456" target="_blank" rel="noopener">TMDB</a>. This product uses the TMDB API but is not endorsed or certified by TMDB.</footer>
-<script src="js/app.js?v=15"></script>
+<script src="js/app.js?v=16"></script>
 </body>
 </html>
