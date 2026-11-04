@@ -88,8 +88,9 @@
       }).join("") + '</span>';
     }
     function card(title, count, body, extra) {
-      return '<details class="card' + (extra || "") + '"><summary><h3>' + esc(title) + '</h3><span class="n">' + count +
-        '</span><span class="chev" aria-hidden="true">›</span></summary><div class="cbody">' + body + '</div></details>';
+      return '<details class="card' + (extra || "") + '"><summary><h3>' + esc(title) + '</h3>' +
+        (count == null ? '' : '<span class="n">' + count + '</span>') +
+        '<span class="chev" aria-hidden="true">›</span></summary><div class="cbody">' + body + '</div></details>';
     }
 
     var html = '<div class="chips">' +
@@ -99,7 +100,9 @@
 
     ep.sections.forEach(function (sec) {
       var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
-      if (sec.style === "steps") {
+      if (sec.style === "prose") {
+        body += '<div class="prose">' + sec.items.map(function (it) { return '<p>' + esc(it.text) + cites(it.src) + '</p>'; }).join("") + '</div>';
+      } else if (sec.style === "steps") {
         body += '<ol class="steps">' + sec.items.map(function (it) { return '<li>' + esc(it.text) + cites(it.src) + '</li>'; }).join("") + '</ol>';
       } else {
         body += '<ul class="items">' + sec.items.map(function (it) {
@@ -113,7 +116,7 @@
           return '<li>' + meta + '<p>' + esc(it.text) + cites(it.src) + '</p></li>';
         }).join("") + '</ul>';
       }
-      html += card(sec.title, sec.items.length, body);
+      html += card(sec.title, sec.style === "prose" ? null : sec.items.length, body);
     });
 
     return html + card("Sources", order.length, '<ol class="srclist">' + order.map(function (k) {

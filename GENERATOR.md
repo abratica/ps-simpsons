@@ -29,7 +29,7 @@ Sections, in this order, with these exact ids and titles:
 
 | id | title | style | what goes in it |
 |---|---|---|---|
-| `plot` | Plot Refresher | `steps` | 8–12 beats in story order, each one or two sentences. A refresher for people who watched it, not a teaser. |
+| `plot` | Plot | `prose` | 3–4 short paragraphs telling what happens, in story order, like a well-written episode summary. Plain and readable, not a teaser and not a bullet list. Each paragraph cites its sources. |
 | `eggs` | Easter Eggs / In-Jokes | `items` | Sight gags, background signs and text, freeze-frame jokes, references and parodies, callbacks, foreshadowing, notable animation goofs. In episode order where known. Each has `tag` (Sight gag, Reference, In-joke, Running gag, Setup, Callback, Goof), `time` (`"~MM:SS"` only if a source gives it, else `null`) and `confirmed`. This is the most important section: aim for 15+ items. |
 | `moment` | The Moment | `items` | What was happening when it aired: TV landscape, ratings, news, pop culture the jokes are aimed at. A `"Worth discussing"` item may connect dots, but must say it is our own connection, not a sourced claim. |
 | `writers` | Writers' Room | `items` | Who wrote and directed it and their background, how the story came about, rewrites, cut ideas, censors, production stories. |

@@ -13,19 +13,13 @@
   "sections": [
     {
       "id": "plot",
-      "title": "Plot Refresher",
-      "style": "steps",
+      "title": "Plot",
+      "style": "prose",
       "items": [
-        { "text": "The family goes to the Springfield Elementary Christmas pageant, where Bart sings a mocking version of a carol and Lisa performs in \"Santas of Many Lands.\"", "src": ["wiki"] },
-        { "text": "Bart and Lisa write letters to Santa. Lisa asks for a pony; Marge says there isn't room on the sleigh. Bart asks for a tattoo, which his parents forbid.", "src": ["wiki"] },
-        { "text": "At the mall, Bart sneaks off and starts getting a tattoo that reads \"Mother,\" figuring Marge will love it.", "src": ["wiki"] },
-        { "text": "Marge catches him mid-tattoo and spends the whole Christmas budget having it lasered off, counting on Homer's bonus to cover the gifts.", "src": ["wiki"] },
-        { "text": "Mr. Burns cancels the plant's Christmas bonus over the PA. Homer keeps it from the family.", "src": ["wiki"] },
-        { "text": "On Barney's suggestion, Homer secretly takes a job as a mall Santa.", "src": ["wiki"] },
-        { "text": "On Christmas Eve, Bart yanks off the mall Santa's beard and finds Homer. Instead of being angry, he's touched that his dad was moonlighting for presents.", "src": ["wiki"] },
-        { "text": "Homer's Santa paycheck is gutted by deductions for training and his uniform. Barney tips him and Bart off to the dog track.", "src": ["wiki"] },
-        { "text": "At Springfield Downs, Homer bets everything on a 99-to-1 long shot named Santa's Little Helper, taking the name as a sign. The dog finishes last and its owner dumps him.", "src": ["wiki"] },
-        { "text": "Bart begs to keep the dog. Back home, the new pet interrupts Homer's confession, and the family ends the night singing \"Rudolph the Red-Nosed Reindeer.\"", "src": ["wiki"] }
+        { "text": "Christmas in Springfield kicks off at the elementary school pageant, where Bart sings a mocking version of a carol and Lisa performs in \"Santas of Many Lands.\" Back home, the kids write their letters to Santa: Lisa asks for a pony, which Marge says won't fit on the sleigh, and Bart asks for a tattoo, which his parents forbid.", "src": ["wiki"] },
+        { "text": "Bart goes for it anyway. At the mall he sneaks off and starts getting a tattoo that reads \"Mother,\" figuring Marge will love it. She catches him halfway through and spends the whole Christmas budget having it lasered off, counting on Homer's holiday bonus to cover the gifts. But Mr. Burns cancels the bonus over the plant's PA, and Homer keeps the news to himself.", "src": ["wiki"] },
+        { "text": "On Barney's suggestion, Homer secretly takes a job as a mall Santa. On Christmas Eve, Bart yanks off Santa's beard and finds his dad underneath, but instead of being angry, he's touched that Homer was moonlighting to pay for presents. The paycheck turns out to be gutted by deductions for training and the uniform, so when Barney tips them off to the dog track, Homer and Bart head to Springfield Downs.", "src": ["wiki"] },
+        { "text": "Homer bets everything on a 99-to-1 long shot named Santa's Little Helper, taking the name as a sign. The dog finishes last, and its owner dumps him. Bart begs to keep him, and back home the new pet interrupts Homer's confession, and the family ends the night singing \"Rudolph the Red-Nosed Reindeer.\"", "src": ["wiki"] }
       ]
     },
     {
