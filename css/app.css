@@ -30,6 +30,10 @@ html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
 a { color: var(--link); text-underline-offset: 2px; }
 img { display: block; }
+/* No tap flash on Android (same as PS Sports); keyboard users still get a focus ring */
+a, button, summary, [role="button"] { -webkit-tap-highlight-color: transparent; }
+summary:focus, a:focus, button:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 6px; }
 
 /* Header: black like PS Sports, with the PS Simpsons lettering */
 .masthead {
