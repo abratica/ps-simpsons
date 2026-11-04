@@ -49,12 +49,10 @@ main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 /* Stills */
 .still, .tstill { position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: var(--soft); }
 .still img, .tstill img { width: 100%; height: 100%; object-fit: cover; }
-.nostill { background: linear-gradient(180deg, var(--sky2), color-mix(in srgb, var(--sky2) 45%, var(--page))); }
-.nostill .c1 { width: 34%; height: 14%; left: 12%; top: 30%; opacity: .9; }
-.nostill .c1::before { width: 45%; height: 210%; left: 18%; top: -95%; }
-.nostill .c1::after { width: 32%; height: 160%; left: 52%; top: -55%; }
-.nostill .c2 { width: 24%; height: 10%; right: 10%; top: 58%; opacity: .7; }
-.nostill .c2::before { width: 45%; height: 200%; left: 25%; top: -90%; }
+.nostill {
+  background: #4AB3F2 url("../img/coming-soon.jpg") center / cover no-repeat;
+  background-image: image-set(url("../img/coming-soon.webp") type("image/webp"), url("../img/coming-soon.jpg") type("image/jpeg"));
+}
 
 /* Home */
 .kicker { margin: 2px 2px 8px; font: 400 18px/1.3 var(--hand); color: var(--accent); }
@@ -78,8 +76,7 @@ main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 .tile .tn { margin: 8px 10px 0; font-size: 11px; font-weight: 800; letter-spacing: .04em; color: var(--accent); }
 .tile .tt { margin: 2px 10px 0; font: 400 16.5px/1.15 var(--display); }
 .tile .soon { margin: 4px 10px 0; font-size: 11.5px; color: var(--muted); }
-.tile.off { box-shadow: none; background: color-mix(in srgb, var(--card) 55%, transparent); }
-.tile.off .tstill, .tile.off .tn, .tile.off .tt { opacity: .55; }
+.tile.off .tn, .tile.off .tt { opacity: .75; }
 
 /* Episode */
 .ehero { position: relative; margin: -16px -16px 16px; }

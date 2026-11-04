@@ -53,10 +53,10 @@
     }
     return "";
   }
-  // A still, or a little sky with clouds when there isn't one yet.
+  // A still, or Andrew's cloud picture when there isn't one yet.
   function stillBox(o, cls, sizes, eager) {
     var img = stillImg(o, sizes, eager);
-    return '<div class="' + cls + (img ? "" : " nostill") + '">' + (img || '<span class="cloud c1"></span><span class="cloud c2"></span>') + '</div>';
+    return '<div class="' + cls + (img ? "" : " nostill") + '">' + img + '</div>';
   }
 
   var TAG_COLORS = { "Sight gag": "#E58A00", "Reference": "#0A84D6", "In-joke": "#7B4FD6", "Running gag": "#D6338A",
