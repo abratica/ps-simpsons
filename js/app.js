@@ -80,12 +80,13 @@
       return (featId ? loadEpisode(featId) : Promise.resolve(null)).then(function (ep) {
         var html = "";
         if (ep) {
-          html += '<p class="kicker">Newest episode</p>' +
+          // Newest episode: a drop-down like the seasons, open to start.
+          html += '<details class="season feat" open><summary><span class="shead"><h2>Newest episode</h2><span>' +
+            esc(epCode(ep.season, ep.episode)) + '</span></span>' + CHEV_DOWN + '</summary>' +
             '<a class="hero" href="#/ep/' + esc(ep.id) + '">' + stillBox(ep, "still", "(max-width: 640px) 100vw, 608px", true) +
-            '<div class="hb"><p class="code">' + esc(epCode(ep.season, ep.episode)) + '</p>' +
-            '<h2 class="eptitle">' + esc(ep.title) + '</h2>' +
+            '<div class="hb"><h2 class="eptitle">' + esc(ep.title) + '</h2>' +
             '<p class="date">Aired ' + esc(fmtDate(ep.airDate, SHORT)) + '</p>' +
-            '<span class="btn">See episode guide</span></div></a>';
+            '<span class="btn">See episode guide</span></div></a></details>';
         }
         (idx.seasons || []).forEach(function (s) {
           // Each season is a drop-down (same pattern as PS Sports); new seasons in index.json show up automatically.
