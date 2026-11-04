@@ -70,7 +70,7 @@
   }
 
   /* ---------- Episode guide (shared by the home page and episode pages) ---------- */
-  // Quick facts, then each section as a tap-open card, then sources and the TMDB link.
+  // Credits, then each section as a tap-open card, then sources and the TMDB link.
   function guideHTML(ep) {
     // Number the sources in order of first use.
     var order = [], num = {};
@@ -93,11 +93,11 @@
         '<span class="chev" aria-hidden="true">›</span></summary><div class="cbody">' + body + '</div></details>';
     }
 
-    // Quick facts: one compact line each.
-    var html = '<dl class="facts">' +
-      '<div><dt>Aired</dt><dd>' + esc(fmtDate(ep.airDate, SHORT)) + '</dd></div>' +
-      (ep.writer ? '<div><dt>Written by</dt><dd>' + esc(ep.writer) + '</dd></div>' : '') +
-      (ep.director ? '<div><dt>Directed by</dt><dd>' + esc(ep.director) + '</dd></div>' : '') + '</dl>';
+    // Credits on one compact line (the air date sits under the title).
+    var credits = [];
+    if (ep.writer) credits.push('<span><b>Written by</b> ' + esc(ep.writer) + '</span>');
+    if (ep.director) credits.push('<span><b>Directed by</b> ' + esc(ep.director) + '</span>');
+    var html = credits.length ? '<p class="credits">' + credits.join('') + '</p>' : '';
 
     ep.sections.forEach(function (sec) {
       var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
@@ -179,7 +179,8 @@
     setChrome(true);
     return loadEpisode(id).then(function (ep) {
       app.innerHTML = '<div class="ehero">' + stillBox(ep, "still", "(max-width: 640px) 100vw, 640px", true) +
-        '<div class="eh"><p class="code">' + esc(epCode(ep.season, ep.episode)) + '</p><h2 class="eptitle">' + esc(ep.title) + '</h2></div></div>' +
+        '<div class="eh"><p class="code">' + esc(epCode(ep.season, ep.episode)) + '</p><h2 class="eptitle">' + esc(ep.title) + '</h2>' +
+        '<p class="date">Aired ' + esc(fmtDate(ep.airDate, SHORT)) + '</p></div></div>' +
         '<div class="epbody">' + guideHTML(ep) + '</div>';
       document.title = ep.title + " · PS Simpsons";
       window.scrollTo(0, 0);
