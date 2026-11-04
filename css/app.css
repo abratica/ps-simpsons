@@ -1,3 +1,5 @@
+@font-face { font-family: "Chewy"; src: url("../fonts/chewy.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "Gloria Hallelujah"; src: url("../fonts/gloria-hallelujah.woff2") format("woff2"); font-display: swap; }
 :root {
   --page: #FFFFFF;
   --ink: #111111;
@@ -157,3 +159,9 @@ details[open] > summary .chev { transform: rotate(90deg); }
 .install-done { margin-top: 16px; width: 100%; min-height: 48px; background: var(--brand); color: var(--brand-ink); border: 0; border-radius: 12px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
 .install-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 26px; height: 22px; padding: 0 6px; margin: 0 2px; vertical-align: -3px; border-radius: 7px; background: var(--soft); color: var(--ink); font-size: 12px; font-weight: 800; letter-spacing: 1px; }
 body:has(.install-bar) { padding-bottom: 84px; }
+
+/* Display fonts: Chewy for the app name and episode titles, Gloria Hallelujah for guide section headings */
+.wordmark { font-family: "Chewy", system-ui, sans-serif; font-size: 27px; font-weight: 400; letter-spacing: 0.01em; line-height: 1.1; }
+.eptitle { font-family: "Chewy", system-ui, sans-serif; font-size: 27px; font-weight: 400; letter-spacing: 0.005em; line-height: 1.15; }
+.sec summary > span:first-child { font-family: "Gloria Hallelujah", system-ui, sans-serif; font-size: 19px; font-weight: 400; line-height: 1.3; }
+.sec summary .count { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
