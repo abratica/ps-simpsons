@@ -95,9 +95,7 @@
     var html = '<div class="chips">' +
       '<span><b>Aired</b>' + esc(fmtDate(ep.airDate, SHORT)) + '</span>' +
       (ep.writer ? '<span><b>Written by</b>' + esc(ep.writer) + '</span>' : '') +
-      (ep.director ? '<span><b>Directed by</b>' + esc(ep.director) + '</span>' : '') +
-      (ep.prodCode ? '<span><b>Prod. code</b>' + esc(ep.prodCode) + '</span>' : '') +
-      (ep.runtime ? '<span><b>Runtime</b>' + esc(ep.runtime) + '</span>' : '') + '</div>';
+      (ep.director ? '<span><b>Directed by</b>' + esc(ep.director) + '</span>' : '') + '</div>';
 
     ep.sections.forEach(function (sec) {
       var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
