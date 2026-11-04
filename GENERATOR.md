@@ -30,6 +30,7 @@ Sections, in this order, with these exact ids and titles:
 | id | title | style | what goes in it |
 |---|---|---|---|
 | `plot` | Plot | `prose` | 3–4 short paragraphs telling what happens, in story order, like a well-written episode summary. Plain and readable, not a teaser and not a bullet list. Each paragraph cites its sources. |
+| `quotes` | Quotes | `quotes` | The episode's genuinely strong, memorable lines: include every one that's good, skip filler. Each item is one short moment (1–4 lines) with `context` (a few words on the scene), `lines` (`[{ "who", "text" }]`, exact wording), `src` and `confirmed`. Trim long speeches with "..." rather than quoting them whole. Never song lyrics or sung lines. |
 | `eggs` | Easter Eggs / In-Jokes | `items` | Sight gags, background signs and text, freeze-frame jokes, references and parodies, callbacks, foreshadowing, notable animation goofs. In episode order where known. Each has `tag` (Sight gag, Reference, In-joke, Running gag, Setup, Callback, Goof), `time` (`"~MM:SS"` only if a source gives it, else `null`) and `confirmed`. This is the most important section: aim for 15+ items. |
 | `moment` | The Moment | `items` | What was happening when it aired: TV landscape, ratings, news, pop culture the jokes are aimed at. A `"Worth discussing"` item may connect dots, but must say it is our own connection, not a sourced claim. |
 | `writers` | Writers' Room | `items` | Who wrote and directed it and their background, how the story came about, rewrites, cut ideas, censors, production stories. |
@@ -37,7 +38,7 @@ Sections, in this order, with these exact ids and titles:
 | `firsts` | Firsts & Guest Voices | `items` | Character debuts, firsts, guest stars and who they voiced, early-version differences, later payoffs/callbacks to this episode. |
 | `reception` | Reception & Legacy | `items` | Ratings if not already in The Moment, awards, critics, rankings, later influence. |
 
-Copy `note` text for `eggs` and `commentary` from the reference file.
+Copy `note` text for `quotes`, `eggs` and `commentary` from the reference file.
 
 ## Sources, in the order to check them
 
@@ -47,6 +48,7 @@ Use WebSearch to find each page (search results' URLs fetch cleanly), then WebFe
 2. **Wikipedia** episode article. Production, plot, reception, ratings, awards. Footnotes often cite the DVD commentary.
 3. **Wikisimpsons** (`simpsonswiki.com/wiki/<PRODCODE>`) plus its subpages: `/References`, `/Appearances`, `/DVD_features`, `/Music`.
 4. **Fandom Simpsons Wiki** (`simpsons.fandom.com`) episode page, for trivia the other wiki lacks.
+   For **Quotes**, use the Wikisimpsons and Fandom `/Quotes` subpages (e.g. `simpsonswiki.com/wiki/<Title>/Quotes`) plus the SNPP capsule, and compare exact wording across them.
 5. **Retrospectives, oral histories, interviews**: search `"<title>" Simpsons` plus words like *oral history*, *behind the scenes*, *writer interview*, *anniversary*. Good outlets: The A.V. Club, The Ringer, Vanity Fair, Vulture, Cracked, Mental Floss, /Film, Den of Geek, IGN.
 6. **TV Tropes** recap page (`tvtropes.org/pmwiki/pmwiki.php/Recap/TheSimpsonsS<S>E<E>...`): secondary source for references and setups.
 7. **MovieMistakes** (`moviemistakes.com/tv3501/season<N>`): goofs, often with timestamps.
@@ -62,10 +64,11 @@ If a site is blocked or a page is missing, move to the next source. Never route 
 - Claims that are one person's account (e.g. a writer describing how they were treated) say so in the text.
 - When sources disagree on a number or date, use the better-sourced one and don't present the other as fact.
 - No guesses: no timestamps, sign text or character names unless a source gives them.
+- Quotes: `confirmed: true` only when two sources have the line with matching wording. If sources word it differently, use the version two of them share.
 
 ## Writing rules
 
-- Everything in your own words. No passages copied from sources; a short quoted phrase at most, and rarely.
+- Everything in your own words. No passages copied from sources; a short quoted phrase at most, and rarely. The one exception is the Quotes section, which uses the show's exact dialogue, kept to short moments.
 - Never reproduce song lyrics, even a line. Refer to the song by title.
 - Plain, conversational, specific. Written for three friends prepping a podcast, not for a wiki.
 - No images in the text. `still` stays `null`; `tmdbStill` comes only from the script.

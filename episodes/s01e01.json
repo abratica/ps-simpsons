@@ -23,6 +23,26 @@
       ]
     },
     {
+      "id": "quotes",
+      "title": "Quotes",
+      "style": "quotes",
+      "note": "Exact wording from fan transcripts. A line only one source has is marked Unconfirmed.",
+      "items": [
+        { "context": "When Marge collects the kids' letters to Santa", "lines": [{ "who": "Bart", "text": "Oh, please, there's only one fat guy that brings us presents and his name ain't Santa." }], "src": ["wsquotes", "fandomquotes", "snpp"], "confirmed": true },
+        { "context": "Bart asks for a tattoo for Christmas", "lines": [{ "who": "Marge", "text": "You will not be getting a tattoo for Christmas." }, { "who": "Homer", "text": "Yeah, if you want one, you'll have to pay for it out of your own allowance." }], "src": ["wsquotes", "snpp"], "confirmed": true },
+        { "context": "At the tattoo parlor in the mall", "lines": [{ "who": "Bart", "text": "One 'Mother' please." }, { "who": "Clerk", "text": "Wait a minute. How old are you?" }, { "who": "Bart", "text": "21, sir." }, { "who": "Clerk", "text": "Get in the chair." }], "src": ["snpp"], "confirmed": false },
+        { "context": "Mr. Burns, over the plant's PA", "lines": [{ "who": "Mr. Burns", "text": "However, for you semi-skilled workers, there will be no Christmas bonuses." }, { "who": "Mr. Burns", "text": "Oh, and one more thing: Merry Christmas!" }], "src": ["snpp"], "confirmed": false },
+        { "context": "Homer applies to be a mall Santa", "lines": [{ "who": "Manager", "text": "Do you like children?" }, { "who": "Homer", "text": "What do you mean? All the time? Even when they're nuts??" }], "src": ["snpp"], "confirmed": false },
+        { "context": "Homer buys Maggie a chew toy", "lines": [{ "who": "Homer", "text": "It says it's for dogs, but she can't read." }], "src": ["wsquotes", "snpp"], "confirmed": true },
+        { "context": "Bart meets the mall Santa", "lines": [{ "who": "Bart", "text": "Hey, Santa, what's shakin', man?" }, { "who": "Homer", "text": "What's your name, Bart-ner... er... little partner?" }, { "who": "Bart", "text": "I'm Bart Simpson, who the hell are you?" }], "src": ["wsquotes", "snpp"], "confirmed": true },
+        { "context": "After Bart unmasks Santa", "lines": [{ "who": "Bart", "text": "Dad, you must really love us to sink so low." }], "src": ["wsquotes", "snpp"], "confirmed": true },
+        { "context": "When Aunt Patty trashes Homer", "lines": [{ "who": "Lisa", "text": "...he's the only father I have. Therefore, he is my model of manhood, and my estimation of him will govern the prospects of my adult relationships." }, { "who": "Patty", "text": "Mm hm. Go watch your cartoon show, dear." }], "src": ["snpp"], "confirmed": false },
+        { "context": "Talking Homer into the dog track", "lines": [{ "who": "Bart", "text": "If TV has taught me anything, it's that miracles always happen to poor kids at Christmas. It happened to Tiny Tim, it happened to Charlie Brown, it happened to the Smurfs, and it's going to happen to us!" }, { "who": "Homer", "text": "Who's Tiny Tim?" }], "src": ["snpp", "fandomquotes", "wsquotes"], "confirmed": true },
+        { "context": "After Santa's Little Helper finishes last", "lines": [{ "who": "Bart", "text": "It doesn't seem possible, but I guess TV has betrayed me." }], "src": ["snpp"], "confirmed": false },
+        { "context": "When Bart begs to keep the dog", "lines": [{ "who": "Homer", "text": "But he's a loser! He's pathetic! He's... a Simpson." }], "src": ["snpp"], "confirmed": false }
+      ]
+    },
+    {
       "id": "eggs",
       "title": "Easter Eggs / In-Jokes",
       "style": "items",
@@ -131,6 +151,8 @@
     "wiki": { "title": "Wikipedia: Simpsons Roasting on an Open Fire", "url": "https://en.wikipedia.org/wiki/Simpsons_Roasting_on_an_Open_Fire" },
     "season1": { "title": "Wikipedia: The Simpsons season 1", "url": "https://en.wikipedia.org/wiki/The_Simpsons_season_1" },
     "snpp": { "title": "The Simpsons Archive (SNPP): 7G08 episode capsule", "url": "https://simpsonsarchive.com/episodes/7G08.txt" },
+    "wsquotes": { "title": "Wikisimpsons: Simpsons Roasting on an Open Fire/Quotes", "url": "https://simpsonswiki.com/wiki/Simpsons_Roasting_on_an_Open_Fire/Quotes" },
+    "fandomquotes": { "title": "Simpsons Wiki (Fandom): Simpsons Roasting on an Open Fire/Quotes", "url": "https://simpsons.fandom.com/wiki/Simpsons_Roasting_on_an_Open_Fire/Quotes" },
     "wikisimpsons": { "title": "Wikisimpsons: Simpsons Roasting on an Open Fire", "url": "https://simpsonswiki.com/wiki/7G08" },
     "wsrefs": { "title": "Wikisimpsons: References", "url": "https://simpsonswiki.com/wiki/Simpsons_Roasting_on_an_Open_Fire/References" },
     "wsappear": { "title": "Wikisimpsons: Appearances", "url": "https://simpsonswiki.com/wiki/Simpsons_Roasting_on_an_Open_Fire/Appearances" },

@@ -100,7 +100,16 @@
 
     ep.sections.forEach(function (sec) {
       var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
-      if (sec.style === "prose") {
+      if (sec.style === "quotes") {
+        body += '<ul class="quotes">' + sec.items.map(function (it) {
+          return '<li><figure>' +
+            (it.context || it.confirmed === false ? '<figcaption>' + (it.context ? '<span class="qctx">' + esc(it.context) + '</span>' : '') +
+              (it.confirmed === false ? '<span class="flag">Unconfirmed</span>' : '') + '</figcaption>' : '') +
+            '<blockquote>' + (it.lines || []).map(function (l) {
+              return '<p><b class="who">' + esc(l.who) + '</b> ' + esc(l.text) + '</p>';
+            }).join("") + '</blockquote>' + cites(it.src) + '</figure></li>';
+        }).join("") + '</ul>';
+      } else if (sec.style === "prose") {
         body += '<div class="prose">' + sec.items.map(function (it) { return '<p>' + esc(it.text) + cites(it.src) + '</p>'; }).join("") + '</div>';
       } else if (sec.style === "steps") {
         body += '<ol class="steps">' + sec.items.map(function (it) { return '<li>' + esc(it.text) + cites(it.src) + '</li>'; }).join("") + '</ol>';
