@@ -221,7 +221,7 @@
     removeBar();
     var bar = document.createElement("div");
     bar.className = "install-bar";
-    bar.innerHTML = '<img src="icons/icon-192.png?v=2" alt="" width="40" height="40">' +
+    bar.innerHTML = '<img src="icons/icon-192.png?v=3" alt="" width="40" height="40">' +
       '<span class="install-text"><b>Get the PS Simpsons app</b><span>The weekly study guide on your home screen</span></span>' +
       '<button type="button" class="install-go">' + label + '</button>' +
       '<button type="button" class="install-x" aria-label="Not now">×</button>';
