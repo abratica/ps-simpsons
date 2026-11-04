@@ -28,28 +28,19 @@ img { display: block; }
 .cloud { position: absolute; background: var(--cloud); border-radius: 999px; pointer-events: none; }
 .cloud::before, .cloud::after { content: ""; position: absolute; background: inherit; border-radius: 50%; }
 
-/* Header */
-.masthead {
-  position: relative; overflow: hidden; display: flex; align-items: center; gap: 4px;
-  padding: calc(14px + env(safe-area-inset-top)) 16px 16px;
-  background: linear-gradient(180deg, var(--sky1), var(--sky2));
+/* Header: the PS Simpsons banner on a matching sky */
+.masthead { background: #3ABBF5; padding-top: env(safe-area-inset-top); }
+.brand { display: block; max-width: 640px; margin: 0 auto; }
+.banner { width: 100%; height: auto; aspect-ratio: 1200 / 372; }
+
+/* Back to all episodes, over the episode still */
+.backpill {
+  position: absolute; z-index: 2; left: 12px; top: 12px; display: inline-flex; align-items: center; gap: 4px;
+  min-height: 36px; padding: 0 14px 0 10px; border-radius: 999px; text-decoration: none;
+  background: rgba(255, 255, 255, .92); color: #14213D; font-size: 14px; font-weight: 800;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
 }
-.masthead .h1c { width: 86px; height: 26px; right: -14px; top: calc(14px + env(safe-area-inset-top)); opacity: .95; }
-.masthead .h1c::before { width: 44px; height: 40px; left: 14px; top: -18px; }
-.masthead .h1c::after { width: 30px; height: 28px; left: 46px; top: -10px; }
-.masthead .h2c { width: 58px; height: 16px; right: 86px; bottom: 10px; opacity: .7; }
-.masthead .h2c::before { width: 26px; height: 24px; left: 12px; top: -11px; }
-.brand { position: relative; display: flex; align-items: center; gap: 10px; text-decoration: none; min-height: 44px; }
-.logo { width: 34px; height: 34px; border-radius: 9px; border: 2px solid #fff; }
-.wordmark {
-  margin: 0; font: 400 30px/1.05 var(--display); letter-spacing: .5px; color: var(--brand);
-  -webkit-text-stroke: 5px #111; paint-order: stroke fill;
-}
-.back {
-  position: relative; width: 36px; height: 44px; display: grid; place-items: center; margin-left: -8px;
-  font-size: 34px; line-height: 1; color: #fff; text-decoration: none;
-}
-.back[hidden] { display: none; }
+.backpill span { font-size: 22px; line-height: 1; margin-top: -2px; }
 
 main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 .status { color: var(--muted); text-align: center; margin-top: 48px; }

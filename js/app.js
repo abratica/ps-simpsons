@@ -2,7 +2,6 @@
   "use strict";
 
   var app = document.getElementById("app");
-  var back = document.getElementById("back");
   var indexCache = null;
   var epCache = {};
 
@@ -63,8 +62,7 @@
     "Setup": "#2E9E5B", "Callback": "#0F9AA0", "Goof": "#E0453A", "Worth discussing": "#5B6B85" };
 
   function setChrome(isEpisode) {
-    document.body.classList.toggle("has-back", isEpisode);
-    back.hidden = !isEpisode;
+    document.body.classList.toggle("is-episode", isEpisode);
   }
 
   /* ---------- Home ---------- */
@@ -135,7 +133,7 @@
         (ep.prodCode ? '<span><b>Prod. code</b>' + esc(ep.prodCode) + '</span>' : '') +
         (ep.runtime ? '<span><b>Runtime</b>' + esc(ep.runtime) + '</span>' : '') + '</div>';
 
-      var html = '<div class="ehero">' + stillBox(ep, "still", "(max-width: 640px) 100vw, 640px", true) +
+      var html = '<div class="ehero"><a class="backpill" href="#/" aria-label="Back to all episodes"><span aria-hidden="true">‹</span> All episodes</a>' + stillBox(ep, "still", "(max-width: 640px) 100vw, 640px", true) +
         '<div class="eh"><p class="code">' + esc(epCode(ep.season, ep.episode)) + '</p><h2 class="eptitle">' + esc(ep.title) + '</h2></div></div>' +
         '<div class="epbody">' + chips;
 
