@@ -195,6 +195,54 @@
   window.addEventListener("hashchange", route);
   route();
 
+  /* ---------- Install banner ---------- */
+  // Chrome/Android: offer the real install prompt. iPhone/iPad: no prompt exists, so show the Share steps.
+  // Hidden once installed, when opened from the home screen, or after the × (remembered on this device).
+  var installBox = document.getElementById("install");
+  var deferredPrompt = null;
+  var DISMISS_KEY = "ps-simpsons-install-dismissed";
+
+  function isInstalled() {
+    return (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
+  }
+  function wasDismissed() {
+    try { return localStorage.getItem(DISMISS_KEY) === "1"; } catch (e) { return false; }
+  }
+  function hideInstall(remember) {
+    installBox.hidden = true;
+    installBox.innerHTML = "";
+    if (remember) { try { localStorage.setItem(DISMISS_KEY, "1"); } catch (e) {} }
+  }
+  function showInstall(html) {
+    if (isInstalled() || wasDismissed()) return;
+    installBox.innerHTML = html + '<button class="x" type="button" aria-label="Dismiss">×</button>';
+    installBox.hidden = false;
+    installBox.querySelector(".x").addEventListener("click", function () { hideInstall(true); });
+  }
+
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstall('<p><strong>Get the app</strong>Add PS Simpsons to your home screen.</p>' +
+      '<button class="go" type="button">Install</button>');
+    var go = installBox.querySelector(".go");
+    if (go) go.addEventListener("click", function () {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function (c) {
+        deferredPrompt = null;
+        if (c.outcome === "accepted") hideInstall(false);
+      });
+    });
+  });
+  window.addEventListener("appinstalled", function () { hideInstall(false); });
+
+  var ua = navigator.userAgent || "";
+  var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (isIOS) {
+    showInstall('<p><strong>Get the app</strong>Tap the Share button, then <b>Add to Home Screen</b>.</p>');
+  }
+
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
       navigator.serviceWorker.register("sw.js").catch(function () {});
