@@ -59,6 +59,8 @@
     return '<div class="' + cls + (img ? "" : " nostill") + '">' + img + '</div>';
   }
 
+  var CHEV_DOWN = '<svg class="toggle" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
   var TAG_COLORS = { "Sight gag": "#E58A00", "Reference": "#0A84D6", "In-joke": "#7B4FD6", "Running gag": "#D6338A",
     "Setup": "#2E9E5B", "Callback": "#0F9AA0", "Goof": "#E0453A", "Worth discussing": "#5B6B85" };
 
@@ -86,8 +88,9 @@
             '<span class="btn">See episode guide</span></div></a>';
         }
         (idx.seasons || []).forEach(function (s) {
-          html += '<section class="season"><div class="shead"><h2>Season ' + s.season + '</h2><span>' +
-            esc(s.years) + ' · ' + s.episodes.length + ' episodes</span></div><div class="grid">';
+          // Each season is a drop-down (same pattern as PS Sports); new seasons in index.json show up automatically.
+          html += '<details class="season"><summary><span class="shead"><h2>Season ' + s.season + '</h2><span>' +
+            esc(s.years) + ' · ' + s.episodes.length + ' episodes</span></span>' + CHEV_DOWN + '</summary><div class="grid">';
           s.episodes.forEach(function (e) {
             var inner = stillBox(e, "tstill", "(max-width: 640px) 50vw, 300px") +
               '<p class="tn">E' + e.episode + '</p><p class="tt">' + esc(e.title) + '</p>' +
@@ -96,7 +99,7 @@
               ? '<a class="tile" href="#/ep/' + esc(e.id) + '">' + inner + '</a>'
               : '<div class="tile off" aria-disabled="true">' + inner + '</div>';
           });
-          html += '</div></section>';
+          html += '</div></details>';
         });
         app.innerHTML = html;
         document.title = "PS Simpsons";
