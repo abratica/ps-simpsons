@@ -70,7 +70,7 @@
   }
 
   /* ---------- Episode guide (shared by the home page and episode pages) ---------- */
-  // Fact chips, then each section as a tap-open card, then sources and the TMDB link.
+  // Quick facts, then each section as a tap-open card, then sources and the TMDB link.
   function guideHTML(ep) {
     // Number the sources in order of first use.
     var order = [], num = {};
@@ -93,10 +93,11 @@
         '<span class="chev" aria-hidden="true">›</span></summary><div class="cbody">' + body + '</div></details>';
     }
 
-    var html = '<div class="chips">' +
-      '<span><b>Aired</b>' + esc(fmtDate(ep.airDate, SHORT)) + '</span>' +
-      (ep.writer ? '<span><b>Written by</b>' + esc(ep.writer) + '</span>' : '') +
-      (ep.director ? '<span><b>Directed by</b>' + esc(ep.director) + '</span>' : '') + '</div>';
+    // Quick facts: one compact line each.
+    var html = '<dl class="facts">' +
+      '<div><dt>Aired</dt><dd>' + esc(fmtDate(ep.airDate, SHORT)) + '</dd></div>' +
+      (ep.writer ? '<div><dt>Written by</dt><dd>' + esc(ep.writer) + '</dd></div>' : '') +
+      (ep.director ? '<div><dt>Directed by</dt><dd>' + esc(ep.director) + '</dd></div>' : '') + '</dl>';
 
     ep.sections.forEach(function (sec) {
       var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
