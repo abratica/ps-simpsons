@@ -28,23 +28,18 @@ img { display: block; }
 .cloud { position: absolute; background: var(--cloud); border-radius: 999px; pointer-events: none; }
 .cloud::before, .cloud::after { content: ""; position: absolute; background: inherit; border-radius: 50%; }
 
-/* Header: compact sky with the PS Simpsons lettering on the left */
+/* Header: Andrew's cloud art behind the PS Simpsons lettering */
 .masthead {
   position: relative; overflow: hidden; display: flex; align-items: center; gap: 2px;
-  padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
-  background: linear-gradient(180deg, #2FB3F4, #48C2F8);
+  padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
+  background: #4AB3F2 url("../img/sky.jpg") center 42% / cover no-repeat;
+  background-image: image-set(url("../img/sky.webp") type("image/webp"), url("../img/sky.jpg") type("image/jpeg"));
 }
-.masthead .h1c { width: 86px; height: 26px; right: -14px; top: calc(16px + env(safe-area-inset-top)); opacity: .95; }
-.masthead .h1c::before { width: 44px; height: 40px; left: 14px; top: -18px; }
-.masthead .h1c::after { width: 30px; height: 28px; left: 46px; top: -10px; }
-.masthead .h2c { width: 52px; height: 15px; right: 54px; bottom: 8px; opacity: .7; }
-.masthead .h2c::before { width: 26px; height: 24px; left: 12px; top: -11px; }
-.masthead .cloud { background: #fff; }
 .brand { position: relative; display: flex; align-items: center; min-height: 44px; }
-.wordmark { height: 38px; width: auto; }
+.wordmark { height: 27px; width: auto; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .25)); }
 .back {
   position: relative; width: 34px; height: 44px; display: grid; place-items: center; margin-left: -8px;
-  font-size: 34px; line-height: 1; color: #fff; text-decoration: none; text-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+  font-size: 34px; line-height: 1; color: #14213D; text-decoration: none; text-shadow: 0 0 6px rgba(255, 255, 255, .9);
 }
 .back[hidden] { display: none; }
 
