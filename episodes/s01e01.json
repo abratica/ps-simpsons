@@ -26,7 +26,6 @@
       "id": "quotes",
       "title": "Quotes",
       "style": "quotes",
-      "note": "Exact wording from fan transcripts. A line only one source has is marked Unconfirmed.",
       "items": [
         { "context": "When Marge collects the kids' letters to Santa", "lines": [{ "who": "Bart", "text": "Oh, please, there's only one fat guy that brings us presents and his name ain't Santa." }], "src": ["wsquotes", "fandomquotes", "snpp"], "confirmed": true },
         { "context": "Bart asks for a tattoo for Christmas", "lines": [{ "who": "Marge", "text": "You will not be getting a tattoo for Christmas." }, { "who": "Homer", "text": "Yeah, if you want one, you'll have to pay for it out of your own allowance." }], "src": ["wsquotes", "snpp"], "confirmed": true },

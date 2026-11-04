@@ -38,7 +38,7 @@ Sections, in this order, with these exact ids and titles:
 | `firsts` | Firsts & Guest Voices | `items` | Character debuts, firsts, guest stars and who they voiced, early-version differences, later payoffs/callbacks to this episode. |
 | `reception` | Reception & Legacy | `items` | Ratings if not already in The Moment, awards, critics, rankings, later influence. |
 
-Copy `note` text for `quotes`, `eggs` and `commentary` from the reference file.
+Copy `note` text for `eggs` and `commentary` from the reference file. `quotes` has no note.
 
 ## Sources, in the order to check them
 
@@ -64,7 +64,7 @@ If a site is blocked or a page is missing, move to the next source. Never route 
 - Claims that are one person's account (e.g. a writer describing how they were treated) say so in the text.
 - When sources disagree on a number or date, use the better-sourced one and don't present the other as fact.
 - No guesses: no timestamps, sign text or character names unless a source gives them.
-- Quotes: `confirmed: true` only when two sources have the line with matching wording. If sources word it differently, use the version two of them share.
+- Quotes: still set `confirmed` (`true` when two sources have the line with matching wording) for our own records, but the app doesn't show an Unconfirmed flag on quotes. If sources word a line differently, use the version two of them share.
 
 ## Writing rules
 

@@ -103,8 +103,7 @@
       if (sec.style === "quotes") {
         body += '<ul class="quotes">' + sec.items.map(function (it) {
           return '<li><figure>' +
-            (it.context || it.confirmed === false ? '<figcaption>' + (it.context ? '<span class="qctx">' + esc(it.context) + '</span>' : '') +
-              (it.confirmed === false ? '<span class="flag">Unconfirmed</span>' : '') + '</figcaption>' : '') +
+            (it.context ? '<figcaption><span class="qctx">' + esc(it.context) + '</span></figcaption>' : '') +
             '<blockquote>' + (it.lines || []).map(function (l) {
               return '<p><b class="who">' + esc(l.who) + '</b> ' + esc(l.text) + '</p>';
             }).join("") + '</blockquote>' + cites(it.src) + '</figure></li>';
