@@ -1,6 +1,6 @@
 // App shell is cached; episode data is network-first so new weeks show up right away.
-var CACHE = "ps-simpsons-v13";
-var SHELL = ["./", "index.html", "css/app.css?v=12", "js/app.js?v=12", "manifest.webmanifest", "icons/icon-192.png?v=3", "fonts/chewy.woff2", "fonts/gloria-hallelujah.woff2", "img/wordmark.webp", "img/wordmark.png", "img/sky.webp", "img/sky.jpg"];
+var CACHE = "ps-simpsons-v14";
+var SHELL = ["./", "index.html", "css/app.css?v=13", "js/app.js?v=13", "manifest.webmanifest", "icons/icon-192.png?v=3", "fonts/chewy.woff2", "fonts/gloria-hallelujah.woff2", "img/wordmark.webp", "img/wordmark.png", "img/sky.webp?v=2", "img/sky.jpg?v=2"];
 
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(SHELL); }).then(function () { return self.skipWaiting(); }));

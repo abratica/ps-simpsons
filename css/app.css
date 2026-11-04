@@ -32,8 +32,8 @@ img { display: block; }
 .masthead {
   position: relative; overflow: hidden; display: flex; align-items: center; gap: 2px;
   padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
-  background: #4AB3F2 url("../img/sky.jpg") center 42% / cover no-repeat;
-  background-image: image-set(url("../img/sky.webp") type("image/webp"), url("../img/sky.jpg") type("image/jpeg"));
+  background: #4AB3F2 url("../img/sky.jpg?v=2") 0% 68% / cover no-repeat;
+  background-image: image-set(url("../img/sky.webp?v=2") type("image/webp"), url("../img/sky.jpg?v=2") type("image/jpeg"));
 }
 .brand { position: relative; display: flex; align-items: center; min-height: 44px; }
 .wordmark { height: 27px; width: auto; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .25)); }
