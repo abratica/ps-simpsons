@@ -5,8 +5,8 @@
 
 /* Neutral, PS Sports-style palette: the Simpsons color lives in the header art, titles and small yellow touches */
 :root {
-  --page: #ECECE9; --card: #F8F8F6; --ink: #151515; --muted: #6B6B67; --label: #8A8A85; --rule: #DEDED9; --soft: #E9E9E6;
-  --pill: #E6E6E2; --pill-ink: #55554F; --shadow: rgba(0, 0, 0, .04);
+  --page: #E3E3DF; --card: #F0F0ED; --ink: #151515; --muted: #6B6B67; --label: #8A8A85; --rule: #D4D4CF; --soft: #E0E0DC;
+  --pill: #DCDCD7; --pill-ink: #55554F; --shadow: rgba(0, 0, 0, .04);
   --brand: #FED90F; --brand-ink: #111111; --link: #151515;
   --flag-bg: #FFF3C4; --flag-ink: #8A6D00;
   --sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
