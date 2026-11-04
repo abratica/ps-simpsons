@@ -150,6 +150,18 @@ main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 }
 .prose p { margin: 0; padding: 4px 0 10px; font-size: 16px; line-height: 1.6; }
 .prose p + p { padding-top: 6px; }
+/* Best Jokes */
+.jokes { list-style: none; margin: 0; padding: 0; counter-reset: joke; }
+.jokes li { position: relative; counter-increment: joke; padding: 12px 0 12px 36px; border-top: 1px solid var(--rule); }
+.jokes li:first-child { border-top: 0; padding-top: 6px; }
+.jokes li::before {
+  content: counter(joke); position: absolute; left: 0; top: 12px; width: 24px; height: 24px; display: grid; place-items: center;
+  background: var(--brand); color: var(--brand-ink); border-radius: 50%; font: 400 14px/1 var(--display);
+}
+.jokes li:first-child::before { top: 6px; }
+.jokes h4 { margin: 0 0 4px; font: 400 18px/1.2 var(--display); letter-spacing: .01em; }
+.jokes h4 .flag { font-family: var(--sans); vertical-align: 2px; margin-left: 4px; }
+.jokes p { margin: 0; font-size: 15.5px; line-height: 1.55; }
 /* Quotes */
 .quotes { list-style: none; margin: 0; padding: 4px 0 0; display: grid; gap: 10px; }
 .quotes figure { position: relative; margin: 0; padding: 12px 14px 12px 40px; background: var(--soft); border-radius: 12px; }

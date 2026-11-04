@@ -101,7 +101,12 @@
 
     ep.sections.forEach(function (sec) {
       var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
-      if (sec.style === "quotes") {
+      if (sec.style === "jokes") {
+        body += '<ol class="jokes">' + sec.items.map(function (it) {
+          return '<li><h4>' + esc(it.title) + (it.confirmed === false ? ' <span class="flag">Unconfirmed</span>' : '') + '</h4>' +
+            '<p>' + esc(it.text) + cites(it.src) + '</p></li>';
+        }).join("") + '</ol>';
+      } else if (sec.style === "quotes") {
         body += '<ul class="quotes">' + sec.items.map(function (it) {
           return '<li><figure>' +
             (it.context ? '<figcaption><span class="qctx">' + esc(it.context) + '</span></figcaption>' : '') +
