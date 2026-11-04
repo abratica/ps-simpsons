@@ -31,28 +31,25 @@ body { margin: 0; background: var(--page); color: var(--ink); font-family: var(-
 a { color: var(--link); text-underline-offset: 2px; }
 img { display: block; }
 
-/* Header: Andrew's cloud art behind the PS Simpsons lettering */
+/* Header: black like PS Sports, with the PS Simpsons lettering */
 .masthead {
-  border-bottom: 1px solid rgba(0, 0, 0, .08);
-  position: relative; overflow: hidden; display: flex; align-items: center; gap: 2px;
+  position: relative; display: flex; align-items: center; gap: 2px;
   padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
-  background: #4AB3F2 url("../img/sky.jpg?v=2") 0% 68% / cover no-repeat;
-  background-image: image-set(url("../img/sky.webp?v=2") type("image/webp"), url("../img/sky.jpg?v=2") type("image/jpeg"));
+  background: #141414; border-bottom: 1px solid #2C2B29;
 }
 .brand { position: relative; display: flex; align-items: center; min-height: 44px; }
-.wordmark { height: 27px; width: auto; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .25)); }
+.wordmark { height: 27px; width: auto; }
 .back {
   position: relative; width: 34px; height: 44px; display: grid; place-items: center; margin-left: -8px;
-  font-size: 34px; line-height: 1; color: #14213D; text-decoration: none; text-shadow: 0 0 6px rgba(255, 255, 255, .9);
+  font-size: 34px; line-height: 1; color: #F7F4EE; text-decoration: none;
 }
 .back[hidden] { display: none; }
 
 /* Light/dark toggle (same pattern as PS Sports) */
 .theme-btn {
   position: relative; margin-left: auto; width: 38px; height: 38px; flex: 0 0 38px;
-  display: grid; place-items: center; border-radius: 50%; border: 0; cursor: pointer;
-  background: rgba(255, 255, 255, .78); color: #151515; box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  display: grid; place-items: center; border-radius: 50%; cursor: pointer;
+  border: 1px solid rgba(247, 244, 238, .25); background: transparent; color: #F7F4EE;
 }
 .theme-btn svg { display: none; }
 :root[data-theme="light"] .theme-btn .i-light, :root[data-theme="dark"] .theme-btn .i-dark { display: block; }
