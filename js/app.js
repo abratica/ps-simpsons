@@ -83,7 +83,7 @@
             '<div class="hb"><p class="code">' + esc(epCode(ep.season, ep.episode)) + '</p>' +
             '<h2 class="eptitle">' + esc(ep.title) + '</h2>' +
             '<p class="date">Aired ' + esc(fmtDate(ep.airDate, SHORT)) + '</p>' +
-            '<span class="btn">Read about this episode</span></div></a>';
+            '<span class="btn">See episode guide</span></div></a>';
         }
         (idx.seasons || []).forEach(function (s) {
           html += '<section class="season"><div class="shead"><h2>Season ' + s.season + '</h2><span>' +
