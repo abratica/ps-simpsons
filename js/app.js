@@ -237,10 +237,15 @@
   });
   window.addEventListener("appinstalled", function () { hideInstall(false); });
 
+  // Show steps right away; Chrome's one-tap prompt (above) replaces them once Chrome allows it,
+  // which can take a tap and ~30 seconds on the page.
   var ua = navigator.userAgent || "";
   var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/.test(ua);
   if (isIOS) {
     showInstall('<p><strong>Get the app</strong>Tap the Share button, then <b>Add to Home Screen</b>.</p>');
+  } else if (isAndroid && !deferredPrompt) {
+    showInstall('<p><strong>Get the app</strong>Tap the <b>⋮</b> menu, then <b>Add to home screen</b> or <b>Install app</b>.</p>');
   }
 
   if ("serviceWorker" in navigator) {

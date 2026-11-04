@@ -1,6 +1,6 @@
 // App shell is cached; episode data is network-first so new weeks show up right away.
-var CACHE = "ps-simpsons-v4";
-var SHELL = ["./", "index.html", "css/app.css?v=4", "js/app.js?v=4", "manifest.webmanifest", "icons/icon-192.png"];
+var CACHE = "ps-simpsons-v5";
+var SHELL = ["./", "index.html", "css/app.css?v=5", "js/app.js?v=5", "manifest.webmanifest", "icons/icon-192.png"];
 
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(SHELL); }).then(function () { return self.skipWaiting(); }));
@@ -15,8 +15,9 @@ self.addEventListener("activate", function (e) {
 self.addEventListener("fetch", function (e) {
   var req = e.request;
   if (req.method !== "GET" || new URL(req.url).origin !== location.origin) return;
-  var isData = /\.json(\?|$)/.test(req.url);
-  if (isData) {
+  // Pages and data are network-first so updates show on the first open; versioned assets stay cache-first.
+  var isFresh = req.mode === "navigate" || /\.json(\?|$)/.test(req.url);
+  if (isFresh) {
     e.respondWith(fetch(req).then(function (res) {
       var copy = res.clone();
       caches.open(CACHE).then(function (c) { c.put(req, copy); });
