@@ -69,6 +69,61 @@
     back.hidden = !isEpisode;
   }
 
+  /* ---------- Episode guide (shared by the home page and episode pages) ---------- */
+  // Fact chips, then each section as a tap-open card, then sources and the TMDB link.
+  function guideHTML(ep) {
+    // Number the sources in order of first use.
+    var order = [], num = {};
+    ep.sections.forEach(function (sec) {
+      sec.items.forEach(function (it) {
+        (it.src || []).forEach(function (k) {
+          if (!(k in num) && ep.sources[k]) { order.push(k); num[k] = order.length; }
+        });
+      });
+    });
+    function cites(src) {
+      if (!src || !src.length) return "";
+      return '<span class="cites">' + src.filter(function (k) { return k in num; }).map(function (k) {
+        return '<a href="' + esc(ep.sources[k].url) + '" target="_blank" rel="noopener" aria-label="Source ' + num[k] + ': ' + esc(ep.sources[k].title) + '">' + num[k] + '</a>';
+      }).join("") + '</span>';
+    }
+    function card(title, count, body, extra) {
+      return '<details class="card' + (extra || "") + '"><summary><h3>' + esc(title) + '</h3><span class="n">' + count +
+        '</span><span class="chev" aria-hidden="true">›</span></summary><div class="cbody">' + body + '</div></details>';
+    }
+
+    var html = '<div class="chips">' +
+      '<span><b>Aired</b>' + esc(fmtDate(ep.airDate, SHORT)) + '</span>' +
+      (ep.writer ? '<span><b>Written by</b>' + esc(ep.writer) + '</span>' : '') +
+      (ep.director ? '<span><b>Directed by</b>' + esc(ep.director) + '</span>' : '') +
+      (ep.prodCode ? '<span><b>Prod. code</b>' + esc(ep.prodCode) + '</span>' : '') +
+      (ep.runtime ? '<span><b>Runtime</b>' + esc(ep.runtime) + '</span>' : '') + '</div>';
+
+    ep.sections.forEach(function (sec) {
+      var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
+      if (sec.style === "steps") {
+        body += '<ol class="steps">' + sec.items.map(function (it) { return '<li>' + esc(it.text) + cites(it.src) + '</li>'; }).join("") + '</ol>';
+      } else {
+        body += '<ul class="items">' + sec.items.map(function (it) {
+          var meta = "";
+          if (it.tag || it.time || it.confirmed === false) {
+            meta = '<div class="itag">' +
+              (it.tag ? '<span class="tag" style="--t:' + (TAG_COLORS[it.tag] || "#5B6B85") + '">' + esc(it.tag) + '</span>' : '') +
+              (it.time ? '<span class="time">' + esc(it.time) + '</span>' : '') +
+              (it.confirmed === false ? '<span class="flag">Unconfirmed</span>' : '') + '</div>';
+          }
+          return '<li>' + meta + '<p>' + esc(it.text) + cites(it.src) + '</p></li>';
+        }).join("") + '</ul>';
+      }
+      html += card(sec.title, sec.items.length, body);
+    });
+
+    return html + card("Sources", order.length, '<ol class="srclist">' + order.map(function (k) {
+      return '<li><a href="' + esc(ep.sources[k].url) + '" target="_blank" rel="noopener">' + esc(ep.sources[k].title) + '</a></li>';
+    }).join("") + '</ol>', " small") +
+      '<a class="tmdb" href="' + tmdbURL(ep) + '" target="_blank" rel="noopener">View on TMDB <span aria-hidden="true">↗</span></a>';
+  }
+
   /* ---------- Home ---------- */
   function renderHome() {
     setChrome(false);
@@ -80,13 +135,14 @@
       return (featId ? loadEpisode(featId) : Promise.resolve(null)).then(function (ep) {
         var html = "";
         if (ep) {
-          // Newest episode: a drop-down like the seasons, open to start.
-          html += '<details class="season feat" open><summary><span class="shead"><h2>Newest episode</h2><span>' +
-            esc(epCode(ep.season, ep.episode)) + '</span></span>' + CHEV_DOWN + '</summary>' +
-            '<a class="hero" href="#/ep/' + esc(ep.id) + '">' + stillBox(ep, "still", "(max-width: 640px) 100vw, 608px", true) +
-            '<div class="hb"><h2 class="eptitle">' + esc(ep.title) + '</h2>' +
+          // Newest episode card; its button opens the whole guide right here, with each section as its own drop-down.
+          html += '<p class="kicker">Newest episode</p>' +
+            '<details class="hero feat"><summary>' + stillBox(ep, "still", "(max-width: 640px) 100vw, 608px", true) +
+            '<div class="hb"><p class="code">' + esc(epCode(ep.season, ep.episode)) + '</p>' +
+            '<h2 class="eptitle">' + esc(ep.title) + '</h2>' +
             '<p class="date">Aired ' + esc(fmtDate(ep.airDate, SHORT)) + '</p>' +
-            '<span class="btn">See episode guide</span></div></a></details>';
+            '<span class="btn"><span class="t-closed">See episode guide</span><span class="t-open">Hide episode guide</span>' + CHEV_DOWN + '</span>' +
+            '</div></summary><div class="guide">' + guideHTML(ep) + '</div></details>';
         }
         (idx.seasons || []).forEach(function (s) {
           // Each season is a drop-down (same pattern as PS Sports); new seasons in index.json show up automatically.
@@ -108,66 +164,13 @@
     });
   }
 
-  /* ---------- Episode ---------- */
+  /* ---------- Episode page ---------- */
   function renderEpisode(id) {
     setChrome(true);
     return loadEpisode(id).then(function (ep) {
-      // Number the sources in order of first use.
-      var order = [], num = {};
-      ep.sections.forEach(function (sec) {
-        sec.items.forEach(function (it) {
-          (it.src || []).forEach(function (k) {
-            if (!(k in num) && ep.sources[k]) { order.push(k); num[k] = order.length; }
-          });
-        });
-      });
-      function cites(src) {
-        if (!src || !src.length) return "";
-        return '<span class="cites">' + src.filter(function (k) { return k in num; }).map(function (k) {
-          return '<a href="' + esc(ep.sources[k].url) + '" target="_blank" rel="noopener" aria-label="Source ' + num[k] + ': ' + esc(ep.sources[k].title) + '">' + num[k] + '</a>';
-        }).join("") + '</span>';
-      }
-      function card(title, count, body, extra) {
-        return '<details class="card' + (extra || "") + '"><summary><h3>' + esc(title) + '</h3><span class="n">' + count +
-          '</span><span class="chev" aria-hidden="true">›</span></summary><div class="cbody">' + body + '</div></details>';
-      }
-
-      var chips = '<div class="chips">' +
-        '<span><b>Aired</b>' + esc(fmtDate(ep.airDate, SHORT)) + '</span>' +
-        (ep.writer ? '<span><b>Written by</b>' + esc(ep.writer) + '</span>' : '') +
-        (ep.director ? '<span><b>Directed by</b>' + esc(ep.director) + '</span>' : '') +
-        (ep.prodCode ? '<span><b>Prod. code</b>' + esc(ep.prodCode) + '</span>' : '') +
-        (ep.runtime ? '<span><b>Runtime</b>' + esc(ep.runtime) + '</span>' : '') + '</div>';
-
-      var html = '<div class="ehero">' + stillBox(ep, "still", "(max-width: 640px) 100vw, 640px", true) +
+      app.innerHTML = '<div class="ehero">' + stillBox(ep, "still", "(max-width: 640px) 100vw, 640px", true) +
         '<div class="eh"><p class="code">' + esc(epCode(ep.season, ep.episode)) + '</p><h2 class="eptitle">' + esc(ep.title) + '</h2></div></div>' +
-        '<div class="epbody">' + chips;
-
-      ep.sections.forEach(function (sec) {
-        var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
-        if (sec.style === "steps") {
-          body += '<ol class="steps">' + sec.items.map(function (it) { return '<li>' + esc(it.text) + cites(it.src) + '</li>'; }).join("") + '</ol>';
-        } else {
-          body += '<ul class="items">' + sec.items.map(function (it) {
-            var meta = "";
-            if (it.tag || it.time || it.confirmed === false) {
-              meta = '<div class="itag">' +
-                (it.tag ? '<span class="tag" style="--t:' + (TAG_COLORS[it.tag] || "#5B6B85") + '">' + esc(it.tag) + '</span>' : '') +
-                (it.time ? '<span class="time">' + esc(it.time) + '</span>' : '') +
-                (it.confirmed === false ? '<span class="flag">Unconfirmed</span>' : '') + '</div>';
-            }
-            return '<li>' + meta + '<p>' + esc(it.text) + cites(it.src) + '</p></li>';
-          }).join("") + '</ul>';
-        }
-        html += card(sec.title, sec.items.length, body);
-      });
-
-      html += card("Sources", order.length, '<ol class="srclist">' + order.map(function (k) {
-        return '<li><a href="' + esc(ep.sources[k].url) + '" target="_blank" rel="noopener">' + esc(ep.sources[k].title) + '</a></li>';
-      }).join("") + '</ol>', " small") +
-        '<a class="tmdb" href="' + tmdbURL(ep) + '" target="_blank" rel="noopener">View on TMDB <span aria-hidden="true">↗</span></a></div>';
-
-      app.innerHTML = html;
+        '<div class="epbody">' + guideHTML(ep) + '</div>';
       document.title = ep.title + " · PS Simpsons";
       window.scrollTo(0, 0);
     });
