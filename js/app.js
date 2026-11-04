@@ -195,57 +195,90 @@
   window.addEventListener("hashchange", route);
   route();
 
-  /* ---------- Install banner ---------- */
-  // Chrome/Android: offer the real install prompt. iPhone/iPad: no prompt exists, so show the Share steps.
-  // Hidden once installed, when opened from the home screen, or after the × (remembered on this device).
-  var installBox = document.getElementById("install");
-  var deferredPrompt = null;
+  /* ---------- Install bar (same pattern as PS Sports) ----------
+     Android/Chrome: once Chrome allows it, the bar's Install button opens Chrome's real install prompt.
+     Until then (and on iPhone, which has no prompt) the bar's How button opens a short guide.
+     × hides it for this visit only; it comes back next time until the app is on the home screen. */
   var DISMISS_KEY = "ps-simpsons-install-dismissed";
+  try { localStorage.removeItem(DISMISS_KEY); } catch (e) {}
+  var deferredPrompt = null;
+  var ua = navigator.userAgent || "";
+  var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/.test(ua);
 
   function isInstalled() {
     return (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
   }
-  function wasDismissed() {
-    try { return localStorage.getItem(DISMISS_KEY) === "1"; } catch (e) { return false; }
+  function dismissed() {
+    try { return sessionStorage.getItem(DISMISS_KEY) === "1"; } catch (e) { return false; }
   }
-  function hideInstall(remember) {
-    installBox.hidden = true;
-    installBox.innerHTML = "";
-    if (remember) { try { localStorage.setItem(DISMISS_KEY, "1"); } catch (e) {} }
+  function removeBar() {
+    var old = document.querySelector(".install-bar");
+    if (old) old.remove();
   }
-  function showInstall(html) {
-    if (isInstalled() || wasDismissed()) return;
-    installBox.innerHTML = html + '<button class="x" type="button" aria-label="Dismiss">×</button>';
-    installBox.hidden = false;
-    installBox.querySelector(".x").addEventListener("click", function () { hideInstall(true); });
+  function installBar(label, onGo) {
+    if (isInstalled() || dismissed()) return;
+    removeBar();
+    var bar = document.createElement("div");
+    bar.className = "install-bar";
+    bar.innerHTML = '<img src="icons/icon-192.png" alt="" width="40" height="40">' +
+      '<span class="install-text"><b>Get the PS Simpsons app</b><span>The weekly study guide on your home screen</span></span>' +
+      '<button type="button" class="install-go">' + label + '</button>' +
+      '<button type="button" class="install-x" aria-label="Not now">×</button>';
+    bar.querySelector(".install-go").addEventListener("click", onGo);
+    bar.querySelector(".install-x").addEventListener("click", function () {
+      try { sessionStorage.setItem(DISMISS_KEY, "1"); } catch (e) {}
+      bar.remove();
+    });
+    document.body.appendChild(bar);
+  }
+
+  var MORE = '<span class="install-chip" aria-label="menu">⋮</span>';
+  var DOTS = '<span class="install-chip" aria-label="three dots">•••</span>';
+  var SHARE = '<span class="install-chip"><svg width="13" height="15" viewBox="0 0 13 15" aria-hidden="true"><path d="M6.5 1v8.5M3.5 4l3-3 3 3M2.5 6.5H1.5v7.5h10V6.5h-1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+
+  function guideSteps() {
+    if (isAndroid) return ["Tap the " + MORE + " menu at the top right of Chrome",
+      "Tap <b>Add to home screen</b> (or <b>Install app</b>)",
+      "Tap <b>Install</b>. PS Simpsons shows up with your other apps"];
+    if (/CriOS/.test(ua)) return ["Tap the <b>Share</b> button " + SHARE + " in the address bar at the top",
+      "Tap <b>Add to Home Screen</b> (you may need to tap <b>More</b> first)",
+      "Tap <b>Add</b>. PS Simpsons shows up with your other apps"];
+    var safariVer = +((ua.match(/Version\/(\d+)/) || [])[1] || 0);
+    // iOS 26 moved Safari's Share button behind the ••• menu next to the address bar.
+    if (safariVer >= 26) return ["Tap the " + DOTS + " button next to the address bar",
+      "Tap <b>Share</b> " + SHARE + ", then scroll down and tap <b>Add to Home Screen</b>",
+      "Keep <b>Open as Web App</b> switched on and tap <b>Add</b>"];
+    return ["Tap the <b>Share</b> button " + SHARE + " at the bottom of Safari",
+      "Scroll down and tap <b>Add to Home Screen</b>",
+      "Tap <b>Add</b>. PS Simpsons shows up with your other apps"];
+  }
+  function showGuide() {
+    var sheet = document.createElement("div");
+    sheet.className = "install-sheet";
+    sheet.innerHTML = '<div class="install-card" role="dialog" aria-label="Add PS Simpsons to your Home Screen">' +
+      '<h2>Add PS Simpsons to your Home Screen</h2><ol>' +
+      guideSteps().map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ol>' +
+      '<p class="install-note">It takes about 10 seconds, and then PS Simpsons opens full screen like any other app.</p>' +
+      '<button type="button" class="install-done">Got it</button></div>';
+    sheet.addEventListener("click", function (ev) {
+      if (ev.target === sheet || ev.target.closest(".install-done")) sheet.remove();
+    });
+    document.body.appendChild(sheet);
   }
 
   window.addEventListener("beforeinstallprompt", function (e) {
     e.preventDefault();
     deferredPrompt = e;
-    showInstall('<p><strong>Get the app</strong>Add PS Simpsons to your home screen.</p>' +
-      '<button class="go" type="button">Install</button>');
-    var go = installBox.querySelector(".go");
-    if (go) go.addEventListener("click", function () {
+    installBar("Install", function () {
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function (c) {
-        deferredPrompt = null;
-        if (c.outcome === "accepted") hideInstall(false);
-      });
+      deferredPrompt.userChoice.then(function () { deferredPrompt = null; removeBar(); }, function () {});
     });
   });
-  window.addEventListener("appinstalled", function () { hideInstall(false); });
-
-  // Show steps right away; Chrome's one-tap prompt (above) replaces them once Chrome allows it,
-  // which can take a tap and ~30 seconds on the page.
-  var ua = navigator.userAgent || "";
-  var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  var isAndroid = /Android/.test(ua);
-  if (isIOS) {
-    showInstall('<p><strong>Get the app</strong>Tap the Share button, then <b>Add to Home Screen</b>.</p>');
-  } else if (isAndroid && !deferredPrompt) {
-    showInstall('<p><strong>Get the app</strong>Tap the <b>⋮</b> menu, then <b>Add to home screen</b> or <b>Install app</b>.</p>');
+  window.addEventListener("appinstalled", removeBar);
+  if ((isIOS || isAndroid) && !isInstalled()) {
+    setTimeout(function () { if (!deferredPrompt) installBar("How", showGuide); }, 1500);
   }
 
   if ("serviceWorker" in navigator) {
