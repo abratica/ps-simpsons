@@ -1,6 +1,6 @@
-# PS Simpsons: weekly study-guide generator
+# PS Simpsons: weekly episode generator
 
-Instructions for the run that researches and publishes each week's episode guide.
+Instructions for the run that researches and publishes each week's episode page. The app presents each one as a general Simpsons episode companion for anyone, not a podcast study guide.
 All paths are relative to the root of the `abratica/ps-simpsons` repo (live at https://abratica.github.io/ps-simpsons/).
 The app (`index.html`, `js/`, `css/`, `sw.js`) only displays the JSON files. Do not change the app during a weekly run.
 
@@ -21,7 +21,7 @@ The podcast records on **Wednesday**. The guide should be live by **Sunday morni
 
 Top level: `id`, `season`, `episode`, `prodCode`, `title`, `airDate` (YYYY-MM-DD), `writer`, `director`, `runtime`, `still` (always `null`; Andrew adds his own screenshot later), `tmdbStill`, `sections`, `sources`.
 
-`tmdbStill` is the episode's still from the TMDB API (its `still_path`, e.g. `"/abc123.jpg"`); the app shows it until Andrew adds his own `still`. Write it as `null`, then, if `TMDB_API_KEY` or `TMDB_READ_TOKEN` is set and `api.themoviedb.org` is reachable, run `python3 scripts/tmdb_stills.py <id>` to fill it. If it isn't reachable, leave it `null` and move on. Never write a still path by hand and never put a key in the repo.
+`tmdbStill` is the episode's still from the TMDB API (its `still_path`, e.g. `"/abc123.jpg"`); the app shows it until Andrew adds his own `still`. Write it as `null`, then, if `TMDB_API_KEY` or `TMDB_READ_TOKEN` is set and `api.themoviedb.org` is reachable, run `python3 scripts/tmdb_stills.py <id>` to fill it (this also updates the episode's entry in `index.json`). If it isn't reachable, leave it `null` and move on. Never write a still path by hand and never put a key in the repo.
 
 `sources` is a map of short keys to `{ "title", "url" }`. Every item cites one or more keys in `src`.
 

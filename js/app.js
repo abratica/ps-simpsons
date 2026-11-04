@@ -2,7 +2,6 @@
   "use strict";
 
   var app = document.getElementById("app");
-  var dateline = document.getElementById("dateline");
   var back = document.getElementById("back");
   var indexCache = null;
   var epCache = {};
@@ -18,6 +17,7 @@
     var d = new Date(p[0], p[1] - 1, p[2]);
     return d.toLocaleDateString("en-US", opts || { month: "long", day: "numeric", year: "numeric" });
   }
+  var SHORT = { month: "short", day: "numeric", year: "numeric" };
 
   function getJSON(url) {
     return fetch(url, { cache: "no-cache" }).then(function (r) {
@@ -25,94 +25,79 @@
       return r.json();
     });
   }
-
   function loadIndex() {
     if (indexCache) return Promise.resolve(indexCache);
     return getJSON("index.json").then(function (j) { indexCache = j; return j; });
   }
-
   function loadEpisode(id) {
     if (epCache[id]) return Promise.resolve(epCache[id]);
     return getJSON("episodes/" + id + ".json").then(function (j) { epCache[id] = j; return j; });
   }
 
-  function epCode(ep) { return "Season " + ep.season + " · Episode " + ep.episode; }
+  function epCode(season, episode) { return "Season " + season + " · Episode " + episode; }
 
   // The Simpsons on TMDB is series 456; episode pages follow /season/N/episode/N.
-  function tmdbHTML(ep) {
-    var url = "https://www.themoviedb.org/tv/456/season/" + ep.season + "/episode/" + ep.episode;
-    return '<a class="extlink" href="' + url + '" target="_blank" rel="noopener">View on TMDB <span aria-hidden="true">↗</span></a>';
-  }
+  function tmdbURL(ep) { return "https://www.themoviedb.org/tv/456/season/" + ep.season + "/episode/" + ep.episode; }
 
   // TMDB still sizes: w92, w185, w300, original. tmdbStill holds the API's still_path, e.g. "/abc123.jpg".
   var TMDB_IMG = "https://image.tmdb.org/t/p/";
-
-  function stillHTML(ep) {
-    var alt = 'alt="Still from ' + esc(ep.title) + '"';
+  function stillImg(o, sizes, eager) {
+    var alt = ' alt="Still from ' + esc(o.title) + '"';
+    var load = eager ? "" : ' loading="lazy"';
     // Andrew's own screenshot wins; TMDB's still is the fallback.
-    if (ep.still) return '<div class="still"><img src="' + esc(ep.still) + '" ' + alt + '></div>';
-    if (ep.tmdbStill && /^\/[\w.-]+\.(jpg|jpeg|png|webp)$/i.test(ep.tmdbStill)) {
-      var p = esc(ep.tmdbStill);
-      return '<div class="still"><img src="' + TMDB_IMG + 'w300' + p + '" srcset="' +
-        TMDB_IMG + 'w300' + p + ' 300w, ' + TMDB_IMG + 'original' + p + ' 1920w" ' +
-        'sizes="(max-width: 640px) 100vw, 608px" loading="lazy" decoding="async" ' + alt + '></div>';
+    if (o.still) return '<img src="' + esc(o.still) + '"' + alt + load + ' decoding="async">';
+    if (o.tmdbStill && /^\/[\w.-]+\.(jpg|jpeg|png|webp)$/i.test(o.tmdbStill)) {
+      var p = esc(o.tmdbStill);
+      return '<img src="' + TMDB_IMG + 'w300' + p + '" srcset="' + TMDB_IMG + 'w300' + p + ' 300w, ' +
+        TMDB_IMG + 'original' + p + ' 1920w" sizes="' + sizes + '"' + alt + load + ' decoding="async">';
     }
-    return '<div class="still" role="img" aria-label="Episode still placeholder">Episode still</div>';
+    return "";
+  }
+  // A still, or a little sky with clouds when there isn't one yet.
+  function stillBox(o, cls, sizes, eager) {
+    var img = stillImg(o, sizes, eager);
+    return '<div class="' + cls + (img ? "" : " nostill") + '">' + (img || '<span class="cloud c1"></span><span class="cloud c2"></span>') + '</div>';
   }
 
-  function metaHTML(ep) {
-    return '<dl class="meta">' +
-      '<dt>Aired</dt><dd>' + esc(fmtDate(ep.airDate)) + '</dd>' +
-      '<dt>Written by</dt><dd>' + esc(ep.writer) + '</dd>' +
-      '<dt>Directed by</dt><dd>' + esc(ep.director) + '</dd>' +
-      (ep.prodCode ? '<dt>Prod. code</dt><dd>' + esc(ep.prodCode) + '</dd>' : '') +
-      '</dl>';
-  }
+  var TAG_COLORS = { "Sight gag": "#E58A00", "Reference": "#0A84D6", "In-joke": "#7B4FD6", "Running gag": "#D6338A",
+    "Setup": "#2E9E5B", "Callback": "#0F9AA0", "Goof": "#E0453A", "Worth discussing": "#5B6B85" };
 
-  function setRecordingLine(idx) {
-    if (idx.current && idx.current.recording) {
-      dateline.textContent = "Recording " + fmtDate(idx.current.recording, { weekday: "long", month: "short", day: "numeric" });
-    } else {
-      dateline.textContent = "";
-    }
+  function setChrome(isEpisode) {
+    document.body.classList.toggle("has-back", isEpisode);
+    back.hidden = !isEpisode;
   }
 
   /* ---------- Home ---------- */
   function renderHome() {
-    document.body.classList.remove("has-back");
-    back.hidden = true;
+    setChrome(false);
     return loadIndex().then(function (idx) {
-      setRecordingLine(idx);
-      var curId = idx.current && idx.current.id;
-      return (curId ? loadEpisode(curId) : Promise.resolve(null)).then(function (ep) {
+      var all = [];
+      (idx.seasons || []).forEach(function (s) { s.episodes.forEach(function (e) { all.push({ s: s, e: e }); }); });
+      var ready = all.filter(function (x) { return x.e.ready; });
+      var featId = (idx.current && idx.current.id) || (ready.length ? ready[ready.length - 1].e.id : null);
+      return (featId ? loadEpisode(featId) : Promise.resolve(null)).then(function (ep) {
         var html = "";
         if (ep) {
-          html += '<h2 class="label">This week</h2>' +
-            '<a class="card" href="#/ep/' + esc(ep.id) + '">' + stillHTML(ep) +
-            '<p class="epnum">' + esc(epCode(ep).toUpperCase()) + '</p>' +
-            '<h3 class="eptitle">' + esc(ep.title) + '</h3></a>' +
-            metaHTML(ep) +
-            '<a class="cta" href="#/ep/' + esc(ep.id) + '">Open the study guide</a>';
+          html += '<p class="kicker">Newest episode</p>' +
+            '<a class="hero" href="#/ep/' + esc(ep.id) + '">' + stillBox(ep, "still", "(max-width: 640px) 100vw, 608px", true) +
+            '<div class="hb"><p class="code">' + esc(epCode(ep.season, ep.episode)) + '</p>' +
+            '<h2 class="eptitle">' + esc(ep.title) + '</h2>' +
+            '<p class="date">Aired ' + esc(fmtDate(ep.airDate, SHORT)) + '</p>' +
+            '<span class="btn">Read about this episode</span></div></a>';
         }
-        html += '<section class="archive"><h2 class="label">All episodes</h2>';
         (idx.seasons || []).forEach(function (s) {
-          var ready = s.episodes.filter(function (e) { return e.ready; }).length;
-          var open = s.episodes.some(function (e) { return e.id === curId; });
-          html += '<details class="season"' + (open ? " open" : "") + '><summary><span>Season ' + s.season +
-            '<small>' + esc(s.years) + ' · ' + s.episodes.length + ' episodes · ' + ready + ' ready</small></span>' +
-            '<span class="chev" aria-hidden="true">›</span></summary><ul class="eplist">';
+          html += '<section class="season"><div class="shead"><h2>Season ' + s.season + '</h2><span>' +
+            esc(s.years) + ' · ' + s.episodes.length + ' episodes</span></div><div class="grid">';
           s.episodes.forEach(function (e) {
-            var status = "";
-            if (e.id === curId) status = '<span class="pill">THIS WEEK</span>';
-            else if (e.id === idx.upNext) status = '<span class="s">Up next</span>';
-            var inner = '<span class="n">E' + e.episode + '</span><span class="t">' + esc(e.title) + '</span>' + status;
+            var inner = stillBox(e, "tstill", "(max-width: 640px) 50vw, 300px") +
+              '<p class="tn">E' + e.episode + '</p><p class="tt">' + esc(e.title) + '</p>' +
+              (e.ready ? "" : '<p class="soon">Coming soon</p>');
             html += e.ready
-              ? '<li><a href="#/ep/' + esc(e.id) + '">' + inner + '</a></li>'
-              : '<li class="off"><span class="row">' + inner + '</span></li>';
+              ? '<a class="tile" href="#/ep/' + esc(e.id) + '">' + inner + '</a>'
+              : '<div class="tile off" aria-disabled="true">' + inner + '</div>';
           });
-          html += '</ul></details>';
+          html += '</div></section>';
         });
-        html += '</section>';
         app.innerHTML = html;
         document.title = "PS Simpsons";
       });
@@ -121,12 +106,8 @@
 
   /* ---------- Episode ---------- */
   function renderEpisode(id) {
-    document.body.classList.add("has-back");
-    back.hidden = false;
-    return Promise.all([loadIndex(), loadEpisode(id)]).then(function (res) {
-      var idx = res[0], ep = res[1];
-      setRecordingLine(idx);
-
+    setChrome(true);
+    return loadEpisode(id).then(function (ep) {
       // Number the sources in order of first use.
       var order = [], num = {};
       ep.sections.forEach(function (sec) {
@@ -136,46 +117,51 @@
           });
         });
       });
-
       function cites(src) {
         if (!src || !src.length) return "";
         return '<span class="cites">' + src.filter(function (k) { return k in num; }).map(function (k) {
-          return '<a href="' + esc(ep.sources[k].url) + '" target="_blank" rel="noopener" aria-label="Source ' + num[k] + ': ' + esc(ep.sources[k].title) + '">[' + num[k] + ']</a>';
+          return '<a href="' + esc(ep.sources[k].url) + '" target="_blank" rel="noopener" aria-label="Source ' + num[k] + ': ' + esc(ep.sources[k].title) + '">' + num[k] + '</a>';
         }).join("") + '</span>';
       }
+      function card(title, count, body, extra) {
+        return '<details class="card' + (extra || "") + '"><summary><h3>' + esc(title) + '</h3><span class="n">' + count +
+          '</span><span class="chev" aria-hidden="true">›</span></summary><div class="cbody">' + body + '</div></details>';
+      }
 
-      var html = stillHTML(ep) +
-        '<p class="epnum">' + esc(epCode(ep).toUpperCase()) + '</p>' +
-        '<h2 class="eptitle">' + esc(ep.title) + '</h2>' + metaHTML(ep) + tmdbHTML(ep) +
-        '<div class="sections">';
+      var chips = '<div class="chips">' +
+        '<span><b>Aired</b>' + esc(fmtDate(ep.airDate, SHORT)) + '</span>' +
+        (ep.writer ? '<span><b>Written by</b>' + esc(ep.writer) + '</span>' : '') +
+        (ep.director ? '<span><b>Directed by</b>' + esc(ep.director) + '</span>' : '') +
+        (ep.prodCode ? '<span><b>Prod. code</b>' + esc(ep.prodCode) + '</span>' : '') +
+        (ep.runtime ? '<span><b>Runtime</b>' + esc(ep.runtime) + '</span>' : '') + '</div>';
 
-      ep.sections.forEach(function (sec, i) {
-        html += '<details class="sec"' + (i === 0 ? " open" : "") + '><summary><span>' + esc(sec.title) +
-          '<span class="count">' + sec.items.length + '</span></span><span class="chev" aria-hidden="true">›</span></summary><div class="body">';
-        if (sec.note) html += '<p class="note">' + esc(sec.note) + '</p>';
+      var html = '<div class="ehero">' + stillBox(ep, "still", "(max-width: 640px) 100vw, 640px", true) +
+        '<div class="eh"><p class="code">' + esc(epCode(ep.season, ep.episode)) + '</p><h2 class="eptitle">' + esc(ep.title) + '</h2></div></div>' +
+        '<div class="epbody">' + chips;
+
+      ep.sections.forEach(function (sec) {
+        var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
         if (sec.style === "steps") {
-          html += '<ol class="steps">' + sec.items.map(function (it) {
-            return '<li>' + esc(it.text) + cites(it.src) + '</li>';
-          }).join("") + '</ol>';
+          body += '<ol class="steps">' + sec.items.map(function (it) { return '<li>' + esc(it.text) + cites(it.src) + '</li>'; }).join("") + '</ol>';
         } else {
-          html += '<ul class="items">' + sec.items.map(function (it) {
-            var tag = '';
+          body += '<ul class="items">' + sec.items.map(function (it) {
+            var meta = "";
             if (it.tag || it.time || it.confirmed === false) {
-              tag = '<div class="itag">' + (it.tag ? '<span>' + esc(it.tag) + '</span>' : '') +
+              meta = '<div class="itag">' +
+                (it.tag ? '<span class="tag" style="--t:' + (TAG_COLORS[it.tag] || "#5B6B85") + '">' + esc(it.tag) + '</span>' : '') +
                 (it.time ? '<span class="time">' + esc(it.time) + '</span>' : '') +
                 (it.confirmed === false ? '<span class="flag">Unconfirmed</span>' : '') + '</div>';
             }
-            return '<li>' + tag + '<div class="itext">' + esc(it.text) + cites(it.src) + '</div></li>';
+            return '<li>' + meta + '<p>' + esc(it.text) + cites(it.src) + '</p></li>';
           }).join("") + '</ul>';
         }
-        html += '</div></details>';
+        html += card(sec.title, sec.items.length, body);
       });
 
-      html += '<details class="sec"><summary><span>Sources<span class="count">' + order.length +
-        '</span></span><span class="chev" aria-hidden="true">›</span></summary><div class="body"><ol class="srclist">' +
-        order.map(function (k) {
-          return '<li><a href="' + esc(ep.sources[k].url) + '" target="_blank" rel="noopener">' + esc(ep.sources[k].title) + '</a></li>';
-        }).join("") + '</ol></div></details></div>';
+      html += card("Sources", order.length, '<ol class="srclist">' + order.map(function (k) {
+        return '<li><a href="' + esc(ep.sources[k].url) + '" target="_blank" rel="noopener">' + esc(ep.sources[k].title) + '</a></li>';
+      }).join("") + '</ol>', " small") +
+        '<a class="tmdb" href="' + tmdbURL(ep) + '" target="_blank" rel="noopener">View on TMDB <span aria-hidden="true">↗</span></a></div>';
 
       app.innerHTML = html;
       document.title = ep.title + " · PS Simpsons";

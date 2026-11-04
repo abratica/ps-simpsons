@@ -1,139 +1,142 @@
 @font-face { font-family: "Chewy"; src: url("../fonts/chewy.woff2") format("woff2"); font-display: swap; }
 @font-face { font-family: "Gloria Hallelujah"; src: url("../fonts/gloria-hallelujah.woff2") format("woff2"); font-display: swap; }
+
+/* Springfield sky */
 :root {
-  --page: #FFFFFF;
-  --ink: #111111;
-  --muted: #5A5A5A;
-  --rule: #E5E5E5;
-  --soft: #F3F3F3;
-  --brand: #FED90F;
-  --brand-ink: #111111;
-  --link: #0363C3;
-  --flag-bg: #FFF1C7;
-  --flag-ink: #6B4E00;
+  --page: #EAF5FF; --card: #FFFFFF; --ink: #14213D; --muted: #5B6B85; --rule: #E6EEF7; --soft: #F1F7FD;
+  --sky1: #0AA2F5; --sky2: #37B4FA; --accent: #0A7CC4; --pill: #E3F2FF; --shadow: rgba(10, 120, 200, .10);
+  --brand: #FED90F; --brand-ink: #111111; --brand-edge: #C9A800; --link: #0A7CC4;
+  --flag-bg: #FFF3C4; --flag-ink: #8A6D00; --cloud: #FFFFFF;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: "Chewy", system-ui, sans-serif; --hand: "Gloria Hallelujah", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --page: #121212;
-    --ink: #F1F1F1;
-    --muted: #A8A8A8;
-    --rule: #2B2B2B;
-    --soft: #1E1E1E;
-    --link: #6FB1FF;
-    --flag-bg: #3A3000;
-    --flag-ink: #FFE27A;
+    --page: #0B1624; --card: #14233A; --ink: #EAF2FF; --muted: #9DB0CC; --rule: #213551; --soft: #1A2C45;
+    --sky1: #0A5E99; --sky2: #1673B3; --accent: #6CC4FF; --pill: #183A5C; --shadow: rgba(0, 0, 0, .35);
+    --link: #6CC4FF; --flag-bg: #3A3000; --flag-ink: #FFE27A; --cloud: #DCEBFA;
   }
 }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0;
-  background: var(--page);
-  color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 15.5px;
-  line-height: 1.5;
-  padding-bottom: env(safe-area-inset-bottom);
-}
+body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
 a { color: var(--link); }
+img { display: block; }
 
+/* Clouds (header and missing stills) */
+.cloud { position: absolute; background: var(--cloud); border-radius: 999px; pointer-events: none; }
+.cloud::before, .cloud::after { content: ""; position: absolute; background: inherit; border-radius: 50%; }
+
+/* Header */
 .masthead {
-  position: relative;
-  background: var(--brand);
-  color: var(--brand-ink);
-  padding: calc(14px + env(safe-area-inset-top)) 16px 12px;
+  position: relative; overflow: hidden; display: flex; align-items: center; gap: 4px;
+  padding: calc(14px + env(safe-area-inset-top)) 16px 16px;
+  background: linear-gradient(180deg, var(--sky1), var(--sky2));
 }
-.wordmark { margin: 0; font-size: 21px; font-weight: 800; letter-spacing: 0.01em; }
-.wordmark a { color: inherit; text-decoration: none; }
-.dateline { margin: 2px 0 0; font-size: 13px; font-weight: 600; opacity: 0.75; }
-body.has-back .masthead { padding-left: 52px; }
+.masthead .h1c { width: 86px; height: 26px; right: -14px; top: calc(14px + env(safe-area-inset-top)); opacity: .95; }
+.masthead .h1c::before { width: 44px; height: 40px; left: 14px; top: -18px; }
+.masthead .h1c::after { width: 30px; height: 28px; left: 46px; top: -10px; }
+.masthead .h2c { width: 58px; height: 16px; right: 86px; bottom: 10px; opacity: .7; }
+.masthead .h2c::before { width: 26px; height: 24px; left: 12px; top: -11px; }
+.brand { position: relative; display: flex; align-items: center; gap: 10px; text-decoration: none; min-height: 44px; }
+.logo { width: 34px; height: 34px; border-radius: 9px; border: 2px solid #fff; }
+.wordmark {
+  margin: 0; font: 400 30px/1.05 var(--display); letter-spacing: .5px; color: var(--brand);
+  -webkit-text-stroke: 5px #111; paint-order: stroke fill;
+}
 .back {
-  position: absolute; left: 6px; top: calc(8px + env(safe-area-inset-top));
-  width: 44px; height: 44px; display: grid; place-items: center;
-  font-size: 32px; line-height: 1; color: var(--brand-ink); text-decoration: none;
+  position: relative; width: 36px; height: 44px; display: grid; place-items: center; margin-left: -8px;
+  font-size: 34px; line-height: 1; color: #fff; text-decoration: none;
 }
+.back[hidden] { display: none; }
 
-main { max-width: 640px; margin: 0 auto; padding: 16px 16px 48px; }
+main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 .status { color: var(--muted); text-align: center; margin-top: 48px; }
 
-h2.label {
-  margin: 4px 0 10px; font-size: 13px; font-weight: 700;
-  letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
-}
+/* Stills */
+.still, .tstill { position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: var(--soft); }
+.still img, .tstill img { width: 100%; height: 100%; object-fit: cover; }
+.nostill { background: linear-gradient(180deg, var(--sky2), color-mix(in srgb, var(--sky2) 45%, var(--page))); }
+.nostill .c1 { width: 34%; height: 14%; left: 12%; top: 30%; opacity: .9; }
+.nostill .c1::before { width: 45%; height: 210%; left: 18%; top: -95%; }
+.nostill .c1::after { width: 32%; height: 160%; left: 52%; top: -55%; }
+.nostill .c2 { width: 24%; height: 10%; right: 10%; top: 58%; opacity: .7; }
+.nostill .c2::before { width: 45%; height: 200%; left: 25%; top: -90%; }
 
-/* Episode card / header */
-.still {
-  width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden;
-  background: var(--soft); display: grid; place-items: center;
-  color: var(--muted); font-size: 13px; font-weight: 600;
+/* Home */
+.kicker { margin: 2px 2px 8px; font: 400 18px/1.3 var(--hand); color: var(--accent); }
+.hero { display: block; background: var(--card); color: inherit; text-decoration: none; border-radius: 20px; overflow: hidden; box-shadow: 0 6px 20px var(--shadow); }
+.hb { padding: 14px 16px 18px; }
+.code { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.eptitle { margin: 4px 0 2px; font: 400 28px/1.12 var(--display); letter-spacing: .005em; }
+.date { margin: 0; color: var(--muted); font-size: 14px; }
+.btn {
+  display: inline-flex; align-items: center; min-height: 44px; margin-top: 14px; padding: 0 20px;
+  background: var(--brand); color: var(--brand-ink); border-radius: 999px; font-size: 15px; font-weight: 800;
+  box-shadow: 0 2px 0 var(--brand-edge);
 }
-.still img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.epnum { margin: 12px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.05em; color: var(--muted); }
-.eptitle { margin: 2px 0 0; font-size: 22px; font-weight: 800; line-height: 1.25; }
-.meta { margin: 10px 0 0; display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 3px 12px; font-size: 14px; }
-.meta dt { color: var(--muted); }
-.meta dd { margin: 0; }
+.season { margin-top: 28px; }
+.shead { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0 2px 12px; }
+.shead h2 { margin: 0; font: 400 26px/1.1 var(--display); }
+.shead span { color: var(--muted); font-size: 13px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 560px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.tile { display: block; background: var(--card); color: inherit; text-decoration: none; border-radius: 14px; overflow: hidden; padding-bottom: 12px; box-shadow: 0 3px 10px var(--shadow); }
+.tile .tn { margin: 8px 10px 0; font-size: 11px; font-weight: 800; letter-spacing: .04em; color: var(--accent); }
+.tile .tt { margin: 2px 10px 0; font: 400 16.5px/1.15 var(--display); }
+.tile .soon { margin: 4px 10px 0; font-size: 11.5px; color: var(--muted); }
+.tile.off { box-shadow: none; background: color-mix(in srgb, var(--card) 55%, transparent); }
+.tile.off .tstill, .tile.off .tn, .tile.off .tt { opacity: .55; }
 
-.extlink {
-  margin-top: 12px; min-height: 44px; display: inline-flex; align-items: center; gap: 6px;
-  padding: 0 14px; border: 1px solid var(--rule); border-radius: 999px;
-  font-size: 14px; font-weight: 700; text-decoration: none;
-}
-.card { display: block; color: inherit; text-decoration: none; }
-.cta {
-  margin-top: 14px; min-height: 48px; display: flex; align-items: center; justify-content: center;
-  border-radius: 10px; background: var(--ink); color: var(--page); font-weight: 700; text-decoration: none;
-}
+/* Episode */
+.ehero { position: relative; margin: -16px -16px 16px; }
+.ehero .still { aspect-ratio: 16 / 9; }
+.eh { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 16px 14px; background: linear-gradient(transparent, rgba(0, 0, 0, .72)); }
+.eh .code { color: #DCE8FF; }
+.eh .eptitle { color: #fff; margin: 2px 0 0; text-shadow: 0 1px 2px rgba(0, 0, 0, .3); }
+@media (min-width: 672px) { .ehero { margin: 0 0 16px; border-radius: 20px; overflow: hidden; } }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.chips span { background: var(--card); border-radius: 12px; padding: 7px 12px; font-size: 14px; line-height: 1.3; box-shadow: 0 2px 6px var(--shadow); }
+.chips b { display: block; font-size: 10.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); }
 
-/* Archive */
-.archive { margin-top: 32px; }
-.season { border-top: 1px solid var(--rule); }
-.season:last-child { border-bottom: 1px solid var(--rule); }
-.season summary, .sec summary {
-  list-style: none; cursor: pointer; min-height: 52px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  font-weight: 700; font-size: 16px;
+.card { background: var(--card); border-radius: 16px; margin-bottom: 10px; box-shadow: 0 3px 10px var(--shadow); }
+.card summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; min-height: 58px; padding: 0 16px; }
+.card summary::-webkit-details-marker { display: none; }
+.card summary h3 { margin: 0; flex: 1; font: 400 20px/1.3 var(--hand); }
+.card.small summary h3 { font-size: 17px; }
+.n { background: var(--pill); color: var(--accent); font-size: 12px; font-weight: 800; border-radius: 999px; padding: 3px 9px; }
+.chev { color: var(--muted); font-size: 22px; line-height: 1; transition: transform .15s ease; }
+.card[open] .chev { transform: rotate(90deg); }
+.cbody { padding: 0 16px 14px; }
+.note { margin: 0 0 4px; padding: 10px 12px; background: var(--soft); border-radius: 10px; font-size: 13px; color: var(--muted); }
+.steps { margin: 0; padding: 4px 0 0; list-style: none; counter-reset: step; }
+.steps li { position: relative; counter-increment: step; padding: 10px 0 10px 38px; border-top: 1px solid var(--rule); font-size: 15.5px; line-height: 1.5; }
+.steps li:first-child { border-top: 0; }
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 10px; width: 26px; height: 26px; display: grid; place-items: center;
+  background: var(--brand); color: var(--brand-ink); border-radius: 50%; font: 400 15px/1 var(--display);
 }
-.season summary::-webkit-details-marker, .sec summary::-webkit-details-marker { display: none; }
-.season summary small { display: block; font-weight: 500; font-size: 13px; color: var(--muted); }
-.chev { color: var(--muted); font-weight: 400; font-size: 20px; transition: transform .15s ease; }
-details[open] > summary .chev { transform: rotate(90deg); }
-.eplist { list-style: none; margin: 0 0 10px; padding: 0; }
-.eplist li { border-top: 1px solid var(--rule); }
-.eplist a, .eplist span.row {
-  display: flex; align-items: center; gap: 12px; min-height: 46px; padding: 6px 0;
-  color: inherit; text-decoration: none; font-size: 14.5px;
+.items { list-style: none; margin: 0; padding: 0; }
+.items li { padding: 12px 0; border-top: 1px solid var(--rule); }
+.items li:first-child { border-top: 0; }
+.items p { margin: 0; font-size: 15.5px; line-height: 1.5; }
+.itag { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.tag { background: color-mix(in srgb, var(--t) 14%, var(--card)); color: var(--t); font-size: 11.5px; font-weight: 800; letter-spacing: .02em; padding: 3px 9px; border-radius: 999px; }
+@media (prefers-color-scheme: dark) { .tag { color: color-mix(in srgb, var(--t) 55%, #fff); background: color-mix(in srgb, var(--t) 28%, var(--card)); } }
+.time { background: var(--soft); color: var(--muted); font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+.flag { background: var(--flag-bg); color: var(--flag-ink); font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+.cites { margin-left: 4px; white-space: nowrap; }
+.cites a {
+  display: inline-grid; place-items: center; min-width: 18px; height: 18px; margin-left: 3px; padding: 0 4px; vertical-align: 2px;
+  background: var(--pill); color: var(--accent); border-radius: 6px; font-size: 10.5px; font-weight: 800; text-decoration: none;
 }
-.eplist .n { width: 30px; flex: none; font-weight: 700; color: var(--muted); font-size: 13.5px; }
-.eplist .t { flex: 1; min-width: 0; }
-.eplist .s { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
-.eplist .off .t { color: var(--muted); }
-.eplist a .t { font-weight: 600; }
-.pill { font-size: 11.5px; font-weight: 800; letter-spacing: .05em; padding: 2px 7px; border-radius: 999px; background: var(--brand); color: #111; }
+.srclist { margin: 0; padding-left: 22px; font-size: 14px; }
+.srclist li { padding: 4px 0; }
+.tmdb { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin: 6px 2px 0; font-size: 14px; font-weight: 700; text-decoration: none; }
 
-/* Episode sections */
-.sections { margin-top: 20px; border-top: 1px solid var(--rule); }
-.sec { border-bottom: 1px solid var(--rule); }
-.sec summary .count { font-weight: 500; font-size: 13px; color: var(--muted); margin-left: 6px; }
-.sec .body { padding: 0 0 16px; }
-.note { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
-.steps { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
-.items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-.items li { padding: 10px 0; border-top: 1px solid var(--rule); }
-.items li:first-child { border-top: 0; padding-top: 0; }
-.itag { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 2px; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-.itag .time { font-variant-numeric: tabular-nums; }
-.flag { text-transform: none; letter-spacing: 0; font-weight: 700; font-size: 11.5px; padding: 1px 7px; border-radius: 999px; background: var(--flag-bg); color: var(--flag-ink); }
-.itext { font-size: 15px; }
-.cites { margin-left: 4px; font-size: 12px; white-space: nowrap; }
-.cites a { text-decoration: none; margin-left: 2px; }
-.srclist { margin: 0; padding-left: 22px; font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
-.srclist li:target { background: var(--flag-bg); }
-
-.credit { max-width: 640px; margin: 0 auto; padding: 0 16px 32px; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.credit { max-width: 640px; margin: 0 auto; padding: 0 18px 28px; font-size: 12px; line-height: 1.5; color: var(--muted); }
 .credit a { color: inherit; }
-
 
 /* Install bar + install guide (same pattern as PS Sports) */
 .install-bar {
@@ -159,9 +162,3 @@ details[open] > summary .chev { transform: rotate(90deg); }
 .install-done { margin-top: 16px; width: 100%; min-height: 48px; background: var(--brand); color: var(--brand-ink); border: 0; border-radius: 12px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
 .install-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 26px; height: 22px; padding: 0 6px; margin: 0 2px; vertical-align: -3px; border-radius: 7px; background: var(--soft); color: var(--ink); font-size: 12px; font-weight: 800; letter-spacing: 1px; }
 body:has(.install-bar) { padding-bottom: 84px; }
-
-/* Display fonts: Chewy for the app name and episode titles, Gloria Hallelujah for guide section headings */
-.wordmark { font-family: "Chewy", system-ui, sans-serif; font-size: 27px; font-weight: 400; letter-spacing: 0.01em; line-height: 1.1; }
-.eptitle { font-family: "Chewy", system-ui, sans-serif; font-size: 27px; font-weight: 400; letter-spacing: 0.005em; line-height: 1.15; }
-.sec summary > span:first-child { font-family: "Gloria Hallelujah", system-ui, sans-serif; font-size: 19px; font-weight: 400; line-height: 1.3; }
-.sec summary .count { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }

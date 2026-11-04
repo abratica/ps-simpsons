@@ -4,6 +4,8 @@
 Usage:
   TMDB_API_KEY=xxxx python3 scripts/tmdb_stills.py s01e01        # one or more episodes
   TMDB_API_KEY=xxxx python3 scripts/tmdb_stills.py --all         # every file in episodes/
+  TMDB_API_KEY=xxxx python3 scripts/tmdb_stills.py --index       # every episode listed in index.json (home grid)
+  python3 scripts/tmdb_stills.py --sync-index                    # copy stills already in episodes/ into index.json (no key)
   Add --force to overwrite a value that's already set.
 
 Auth: set TMDB_API_KEY (the v3 "API Key") or TMDB_READ_TOKEN (the "API Read Access Token").
@@ -23,6 +25,7 @@ import urllib.request
 SERIES_ID = 456  # The Simpsons on TMDB
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EP_DIR = os.path.join(ROOT, "episodes")
+INDEX = os.path.join(ROOT, "index.json")
 
 
 def tmdb_get(path):
@@ -55,11 +58,54 @@ def set_still(path, still_path):
     open(path, "w", encoding="utf-8").write(new)
 
 
+def index_entries():
+    idx = json.load(open(INDEX, encoding="utf-8"))
+    return [(s["season"], e) for s in idx.get("seasons", []) for e in s["episodes"]]
+
+
+def set_index_still(ep_id, still_path):
+    """Set "tmdbStill" on this episode's one-line entry in index.json, leaving the rest untouched."""
+    text = open(INDEX, encoding="utf-8").read()
+    pat = re.compile(r'^(\s*\{ "id": "' + re.escape(ep_id) + r'".*?)( \},?)$', re.M)
+    m = pat.search(text)
+    if not m:
+        raise ValueError(f"{ep_id} not found in index.json")
+    body = re.sub(r', "tmdbStill": "[^"]*"', "", m.group(1)) + ', "tmdbStill": ' + json.dumps(still_path)
+    new = text[:m.start()] + body + m.group(2) + text[m.end():]
+    json.loads(new)
+    open(INDEX, "w", encoding="utf-8").write(new)
+
+
 def main(argv):
     force = "--force" in argv
     ids = [a for a in argv if not a.startswith("--")]
     if "--all" in argv:
         ids = sorted(f[:-5] for f in os.listdir(EP_DIR) if re.fullmatch(r"s\d{2}e\d{2}\.json", f))
+    if "--sync-index" in argv:
+        for f in sorted(os.listdir(EP_DIR)):
+            if re.fullmatch(r"s\d{2}e\d{2}\.json", f):
+                still = json.load(open(os.path.join(EP_DIR, f), encoding="utf-8")).get("tmdbStill")
+                if still:
+                    set_index_still(f[:-5], still)
+                    print(f"{f[:-5]}: index.json <- {still}")
+        return 0
+    if "--index" in argv:
+        failed = 0
+        for season, e in index_entries():
+            if e.get("tmdbStill") and not force:
+                continue
+            try:
+                data = tmdb_get(f"/tv/{SERIES_ID}/season/{season}/episode/{e['episode']}")
+                still = data.get("still_path")
+                if still:
+                    set_index_still(e["id"], still)
+                    print(f"{e['id']}: {still}  (TMDB title: {data.get('name')})")
+                else:
+                    print(f"{e['id']}: TMDB has no still for this episode")
+            except (OSError, ValueError, urllib.error.URLError) as err:
+                failed += 1
+                print(f"{e['id']}: failed: {err}", file=sys.stderr)
+        return 1 if failed else 0
     if not ids:
         sys.exit(__doc__)
     failed = 0
@@ -76,6 +122,10 @@ def main(argv):
                 print(f"{ep_id}: TMDB has no still for this episode")
                 continue
             set_still(path, still)
+            try:
+                set_index_still(ep_id, still)
+            except ValueError:
+                pass
             print(f"{ep_id}: {still}  (TMDB title: {data.get('name')})")
         except (OSError, ValueError, urllib.error.URLError) as e:
             failed += 1

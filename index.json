@@ -6,7 +6,7 @@
       "season": 1,
       "years": "1989–90",
       "episodes": [
-        { "id": "s01e01", "episode": 1, "title": "Simpsons Roasting on an Open Fire", "ready": true },
+        { "id": "s01e01", "episode": 1, "title": "Simpsons Roasting on an Open Fire", "ready": true, "tmdbStill": "/zp5gxcPnxv6FsDh3l7yRZurlBRr.jpg" },
         { "id": "s01e02", "episode": 2, "title": "Bart the Genius", "ready": false },
         { "id": "s01e03", "episode": 3, "title": "Homer's Odyssey", "ready": false },
         { "id": "s01e04", "episode": 4, "title": "There's No Disgrace Like Home", "ready": false },
