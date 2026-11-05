@@ -61,7 +61,7 @@
 
   var CHEV_DOWN = '<svg class="toggle" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-  var EGG_ORDER = ["Sight gag", "Reference", "In-joke", "Running gag", "Setup", "Callback", "Goof"];
+  var EGG_ORDER = ["Reference", "Sight gag", "In-joke", "Running gag", "Setup", "Callback", "Goof"];
   var EGG_PLURAL = { "Sight gag": "Sight gags", "Reference": "References", "In-joke": "In-jokes", "Running gag": "Running gags",
     "Setup": "Setups", "Callback": "Callbacks", "Goof": "Goofs" };
 
