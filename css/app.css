@@ -138,7 +138,7 @@ main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 .card.small summary h3 { font-size: 17px; }
 .n { background: var(--pill); color: var(--pill-ink); font-size: 12px; font-weight: 800; border-radius: 999px; padding: 3px 9px; }
 .chev { color: var(--muted); font-size: 22px; line-height: 1; transition: transform .15s ease; }
-.card[open] .chev { transform: rotate(90deg); }
+.card[open] > summary .chev { transform: rotate(90deg); }
 .cbody { padding: 0 16px 14px; }
 .note { margin: 0 0 4px; padding: 10px 12px; background: var(--soft); border-radius: 10px; font-size: 13px; color: var(--muted); }
 .steps { margin: 0; padding: 4px 0 0; list-style: none; counter-reset: step; }
@@ -150,6 +150,16 @@ main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 }
 .prose p { margin: 0; padding: 4px 0 10px; font-size: 16px; line-height: 1.6; }
 .prose p + p { padding-top: 6px; }
+/* Easter egg label drop-downs */
+.sub { margin-top: 8px; background: var(--soft); border-radius: 12px; }
+.sub:first-of-type { margin-top: 4px; }
+.sub summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 12px; }
+.sub summary::-webkit-details-marker { display: none; }
+.sub .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--t); flex: none; }
+.sub h4 { margin: 0; flex: 1; font-size: 15px; font-weight: 700; }
+.sub[open] > summary .chev { transform: rotate(90deg); }
+.sub .items { padding: 0 12px 6px; }
+.sub .items li:first-child { border-top: 1px solid var(--rule); }
 /* Best Jokes */
 .jokes { list-style: none; margin: 0; padding: 0; counter-reset: joke; }
 .jokes li { position: relative; counter-increment: joke; padding: 12px 0 12px 36px; border-top: 1px solid var(--rule); }

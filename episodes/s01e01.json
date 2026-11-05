@@ -65,9 +65,9 @@
     },
     {
       "id": "eggs",
-      "title": "Easter Eggs / In-Jokes",
+      "title": "Easter Eggs",
       "style": "items",
-      "note": "In episode order where known. Timestamps marked ~ are approximate and come from MovieMistakes. Anything backed by only one fan source is marked Unconfirmed.",
+      "note": "Sorted by type, in episode order within each. Timestamps marked ~ are approximate and come from MovieMistakes. Anything backed by only one fan source is marked Unconfirmed.",
       "items": [
         { "tag": "Reference", "time": null, "text": "The title plays on \"The Christmas Song,\" better known by its opening line about chestnuts. Staff writer Al Jean came up with it.", "src": ["wiki", "cracked35", "wsrefs"], "confirmed": true },
         { "tag": "In-joke", "time": null, "text": "The Batman-themed \"Jingle Bells\" Bart sings at the pageant gets credited to the show all the time, but Groening says they didn't invent it; it was already a schoolyard staple.", "src": ["wiki", "mentalfloss", "snpp"], "confirmed": true },

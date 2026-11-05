@@ -61,6 +61,10 @@
 
   var CHEV_DOWN = '<svg class="toggle" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+  var EGG_ORDER = ["Sight gag", "Reference", "In-joke", "Running gag", "Setup", "Callback", "Goof"];
+  var EGG_PLURAL = { "Sight gag": "Sight gags", "Reference": "References", "In-joke": "In-jokes", "Running gag": "Running gags",
+    "Setup": "Setups", "Callback": "Callbacks", "Goof": "Goofs" };
+
   var TAG_COLORS = { "Sight gag": "#E58A00", "Reference": "#0A84D6", "In-joke": "#7B4FD6", "Running gag": "#D6338A",
     "Setup": "#2E9E5B", "Callback": "#0F9AA0", "Goof": "#E0453A", "Worth discussing": "#5B6B85" };
 
@@ -86,6 +90,19 @@
       return '<span class="cites">' + src.filter(function (k) { return k in num; }).map(function (k) {
         return '<a href="' + esc(ep.sources[k].url) + '" target="_blank" rel="noopener" aria-label="Source ' + num[k] + ': ' + esc(ep.sources[k].title) + '">' + num[k] + '</a>';
       }).join("") + '</span>';
+    }
+    function itemsHTML(items, showTag) {
+      return '<ul class="items">' + items.map(function (it) {
+        var meta = "";
+        var tag = showTag && it.tag;
+        if (tag || it.time || it.confirmed === false) {
+          meta = '<div class="itag">' +
+            (tag ? '<span class="tag" style="--t:' + (TAG_COLORS[it.tag] || "#5B6B85") + '">' + esc(it.tag) + '</span>' : '') +
+            (it.time ? '<span class="time">' + esc(it.time) + '</span>' : '') +
+            (it.confirmed === false ? '<span class="flag">Unconfirmed</span>' : '') + '</div>';
+        }
+        return '<li>' + meta + '<p>' + esc(it.text) + cites(it.src) + '</p></li>';
+      }).join("") + '</ul>';
     }
     function card(title, count, body, extra) {
       return '<details class="card' + (extra || "") + '"><summary><h3>' + esc(title) + '</h3>' +
@@ -118,17 +135,19 @@
         body += '<div class="prose">' + sec.items.map(function (it) { return '<p>' + esc(it.text) + cites(it.src) + '</p>'; }).join("") + '</div>';
       } else if (sec.style === "steps") {
         body += '<ol class="steps">' + sec.items.map(function (it) { return '<li>' + esc(it.text) + cites(it.src) + '</li>'; }).join("") + '</ol>';
+      } else if (sec.id === "eggs") {
+        // One drop-down per label, in a fixed order; items keep episode order inside each.
+        var groups = {};
+        sec.items.forEach(function (it) { var k = it.tag || "Other"; (groups[k] = groups[k] || []).push(it); });
+        var order = EGG_ORDER.filter(function (k) { return groups[k]; })
+          .concat(Object.keys(groups).filter(function (k) { return EGG_ORDER.indexOf(k) < 0; }));
+        body += order.map(function (k) {
+          return '<details class="sub" style="--t:' + (TAG_COLORS[k] || "#5B6B85") + '"><summary><span class="dot" aria-hidden="true"></span><h4>' +
+            esc(EGG_PLURAL[k] || k) + '</h4><span class="n">' + groups[k].length + '</span><span class="chev" aria-hidden="true">›</span></summary>' +
+            itemsHTML(groups[k], false) + '</details>';
+        }).join("");
       } else {
-        body += '<ul class="items">' + sec.items.map(function (it) {
-          var meta = "";
-          if (it.tag || it.time || it.confirmed === false) {
-            meta = '<div class="itag">' +
-              (it.tag ? '<span class="tag" style="--t:' + (TAG_COLORS[it.tag] || "#5B6B85") + '">' + esc(it.tag) + '</span>' : '') +
-              (it.time ? '<span class="time">' + esc(it.time) + '</span>' : '') +
-              (it.confirmed === false ? '<span class="flag">Unconfirmed</span>' : '') + '</div>';
-          }
-          return '<li>' + meta + '<p>' + esc(it.text) + cites(it.src) + '</p></li>';
-        }).join("") + '</ul>';
+        body += itemsHTML(sec.items, true);
       }
       html += card(sec.title, sec.style === "prose" ? null : sec.items.length, body);
     });
