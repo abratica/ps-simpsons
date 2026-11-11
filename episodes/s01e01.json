@@ -20,6 +20,28 @@
         { "text": "Bart goes for it anyway. At the mall he sneaks off and starts getting a tattoo that reads \"Mother,\" figuring Marge will love it. She catches him halfway through and spends the whole Christmas budget having it lasered off, counting on Homer's holiday bonus to cover the gifts. But Mr. Burns cancels the bonus over the plant's PA, and Homer keeps the news to himself.", "src": ["wiki"] },
         { "text": "On Barney's suggestion, Homer secretly takes a job as a mall Santa. On Christmas Eve, Bart yanks off Santa's beard and finds his dad underneath, but instead of being angry, he's touched that Homer was moonlighting to pay for presents. The paycheck turns out to be gutted by deductions for training and the uniform, so when Barney tips them off to the dog track, Homer and Bart head to Springfield Downs.", "src": ["wiki"] },
         { "text": "Homer bets everything on a 99-to-1 long shot named Santa's Little Helper, taking the name as a sign. The dog finishes last, and its owner dumps him. Bart begs to keep him, and back home the new pet interrupts Homer's confession, and the family ends the night singing \"Rudolph the Red-Nosed Reindeer.\"", "src": ["wiki"] }
+      ],
+      "beats": [
+        { "text": "The family arrives late to the Springfield Elementary Christmas pageant. Lisa performs in \"Santas of Many Lands,\" and Bart gets pulled off stage for changing the words to \"Jingle Bells.\"", "src": ["snpp", "wiki"], "jokes": ["The never-ending pageant"] },
+        { "text": "At home, Marge writes the family Christmas letter while Homer grumbles.", "src": ["snpp"], "jokes": ["Marge's Christmas letter"] },
+        { "text": "Bart and Lisa write to Santa. Lisa wants a pony; Bart wants a tattoo, which Marge and Homer forbid.", "src": ["snpp", "wiki"], "jokes": ["Lisa's pony list"] },
+        { "text": "Homer falls off the roof hanging the Christmas lights, and his half-dead display gets upstaged by the Flanders house.", "src": ["snpp"], "jokes": ["Homer's lights vs. Flanders's lights"] },
+        { "act": "End of Act One" },
+        { "text": "At breakfast, Marge produces the Christmas money and sends everyone off to the mall.", "src": ["snpp"], "jokes": ["The beehive bank"] },
+        { "text": "Bart sneaks into a tattoo parlor and is halfway through a \"Mother\" tattoo when Marge drags him out.", "src": ["snpp", "wiki"], "jokes": ["Bart's \"Moth\" tattoo"] },
+        { "text": "Marge spends the Christmas money on laser removal, counting on Homer's bonus to cover the gifts.", "src": ["snpp", "wiki"], "jokes": ["Bart's \"Moth\" tattoo"] },
+        { "text": "Over the plant PA, Mr. Burns cancels the Christmas bonus for semi-skilled workers.", "src": ["snpp", "wiki"], "jokes": ["Burns cancels Christmas"] },
+        { "text": "Homer finds out where the Christmas money went and keeps the missing bonus to himself, ending the act outside staring at Ned's lights.", "src": ["snpp", "wiki"], "jokes": [] },
+        { "act": "End of Act Two" },
+        { "text": "Homer volunteers to do the shopping, buys bargain gifts at the Circus of Values, and runs into Flanders.", "src": ["snpp", "tvtropes"], "jokes": ["The glowing grin and the $4.99 Christmas"] },
+        { "text": "At Moe's, Barney mentions his mall Santa job. Homer applies and goes through Santa school.", "src": ["snpp", "wiki"], "jokes": ["Santa school"] },
+        { "text": "Patty and Selma are visiting and there's no tree, so Homer steals one.", "src": ["snpp"], "jokes": ["The Christmas tree run", "Patty and Selma's debut"] },
+        { "text": "On Christmas Eve, Bart pulls off the mall Santa's beard and finds Homer, who confesses there's no bonus.", "src": ["snpp", "wiki"], "jokes": ["Unmasking Santa"] },
+        { "text": "Homer's Santa pay comes to $13 after deductions.", "src": ["snpp", "wiki"], "jokes": ["The $13 paycheck"] },
+        { "text": "On Barney's tip, Homer and Bart head to the dog track, and Homer bets everything on Santa's Little Helper at 99–1.", "src": ["snpp", "wiki"], "jokes": ["Santa's Little Helper's big race"] },
+        { "text": "Back home, Patty bad-mouths Homer and Lisa defends him.", "src": ["snpp"], "jokes": ["Patty and Selma's debut"] },
+        { "text": "Santa's Little Helper finishes last. His owner abandons him, and he jumps into Homer's arms.", "src": ["snpp", "wiki"], "jokes": ["Santa's Little Helper's big race", "The best gift of all"] },
+        { "text": "At home, Homer starts to confess, but the family welcomes the dog as their Christmas present.", "src": ["snpp", "wiki"], "jokes": ["The best gift of all"] }
       ]
     },
     {

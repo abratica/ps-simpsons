@@ -79,7 +79,7 @@
     // Number the sources in order of first use.
     var order = [], num = {};
     ep.sections.forEach(function (sec) {
-      sec.items.forEach(function (it) {
+      sec.items.concat(sec.beats || []).forEach(function (it) {
         (it.src || []).forEach(function (k) {
           if (!(k in num) && ep.sources[k]) { order.push(k); num[k] = order.length; }
         });
@@ -104,11 +104,16 @@
         return '<li>' + meta + '<p>' + esc(it.text) + cites(it.src) + '</p></li>';
       }).join("") + '</ul>';
     }
-    function card(title, count, body, extra) {
-      return '<details class="card' + (extra || "") + '"><summary><h3>' + esc(title) + '</h3>' +
+    function card(title, count, body, extra, secId) {
+      return '<details class="card' + (extra || "") + '"' + (secId ? ' data-sec="' + esc(secId) + '"' : '') + '><summary><h3>' + esc(title) + '</h3>' +
         (count == null ? '' : '<span class="n">' + count + '</span>') +
         '<span class="chev" aria-hidden="true">›</span></summary><div class="cbody">' + body + '</div></details>';
     }
+
+    var jokeNum = {};
+    ep.sections.forEach(function (sec) {
+      if (sec.style === "jokes") sec.items.forEach(function (it, i) { jokeNum[it.title] = i + 1; });
+    });
 
     // Credits on one compact line (the air date sits under the title).
     var credits = [];
@@ -120,7 +125,7 @@
       var body = sec.note ? '<p class="note">' + esc(sec.note) + '</p>' : "";
       if (sec.style === "jokes") {
         body += '<ol class="jokes">' + sec.items.map(function (it) {
-          return '<li><h4>' + esc(it.title) + (it.confirmed === false ? ' <span class="flag">Unconfirmed</span>' : '') + '</h4>' +
+          return '<li data-joke="' + jokeNum[it.title] + '"><h4>' + esc(it.title) + (it.confirmed === false ? ' <span class="flag">Unconfirmed</span>' : '') + '</h4>' +
             '<p>' + esc(it.text) + cites(it.src) + '</p></li>';
         }).join("") + '</ol>';
       } else if (sec.style === "quotes") {
@@ -133,6 +138,19 @@
         }).join("") + '</ul>';
       } else if (sec.style === "prose") {
         body += '<div class="prose">' + sec.items.map(function (it) { return '<p>' + esc(it.text) + cites(it.src) + '</p>'; }).join("") + '</div>';
+        if (sec.beats && sec.beats.length) {
+          // Beat by beat: the running order, with act breaks and links to the Best Jokes that happen in each beat.
+          var nBeats = sec.beats.filter(function (b) { return b.text; }).length;
+          body += '<details class="sub beats"><summary><h4>Beat by beat</h4><span class="n">' + nBeats +
+            '</span><span class="chev" aria-hidden="true">›</span></summary><ol class="beatlist">' +
+            sec.beats.map(function (b) {
+              if (b.act) return '<li class="act">' + esc(b.act) + '</li>';
+              var links = (b.jokes || []).filter(function (t) { return jokeNum[t]; }).map(function (t) {
+                return '<button type="button" class="jlink" data-joke="' + jokeNum[t] + '" aria-label="Best Jokes: ' + esc(t) + '">Joke ' + jokeNum[t] + '</button>';
+              }).join("");
+              return '<li class="beat"><p>' + esc(b.text) + cites(b.src) + (links ? '<span class="jlinks">' + links + '</span>' : '') + '</p></li>';
+            }).join("") + '</ol></details>';
+        }
       } else if (sec.style === "steps") {
         body += '<ol class="steps">' + sec.items.map(function (it) { return '<li>' + esc(it.text) + cites(it.src) + '</li>'; }).join("") + '</ol>';
       } else if (sec.id === "eggs") {
@@ -149,7 +167,7 @@
       } else {
         body += itemsHTML(sec.items, true);
       }
-      html += card(sec.title, sec.style === "prose" ? null : sec.items.length, body);
+      html += card(sec.title, sec.style === "prose" ? null : sec.items.length, body, "", sec.id);
     });
 
     return html + card("Sources", order.length, '<ol class="srclist">' + order.map(function (k) {
@@ -244,6 +262,17 @@
   });
   if (darkMQ && darkMQ.addEventListener) darkMQ.addEventListener("change", applyTheme);
   applyTheme();
+
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest(".jlink");
+    if (!btn) return;
+    var scope = btn.closest(".guide, .epbody") || document;
+    var jokes = scope.querySelector('details[data-sec="jokes"]');
+    if (!jokes) return;
+    jokes.open = true;
+    var li = jokes.querySelector('li[data-joke="' + btn.getAttribute("data-joke") + '"]');
+    if (li) li.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   function route() {
     var m = location.hash.match(/^#\/ep\/(s\d{2}e\d{2})$/);
