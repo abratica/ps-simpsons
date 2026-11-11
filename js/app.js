@@ -65,6 +65,8 @@
   var EGG_PLURAL = { "Sight gag": "Sight gags", "Reference": "References", "In-joke": "In-jokes", "Running gag": "Running gags",
     "Setup": "Setups", "Callback": "Callbacks", "Goof": "Goofs" };
 
+  var JOKE_COLOR = "#C27C0E", QUOTE_COLOR = "#2E9E5B";
+
   var TAG_COLORS = { "Sight gag": "#E58A00", "Reference": "#0A84D6", "In-joke": "#7B4FD6", "Running gag": "#D6338A",
     "Setup": "#2E9E5B", "Callback": "#0F9AA0", "Goof": "#E0453A", "Worth discussing": "#5B6B85" };
 
@@ -79,7 +81,7 @@
     // Number the sources in order of first use.
     var order = [], num = {};
     ep.sections.forEach(function (sec) {
-      sec.items.concat(sec.beats || []).forEach(function (it) {
+      sec.items.forEach(function (it) {
         (it.src || []).forEach(function (k) {
           if (!(k in num) && ep.sources[k]) { order.push(k); num[k] = order.length; }
         });
@@ -115,6 +117,60 @@
       if (sec.style === "jokes") sec.items.forEach(function (it, i) { jokeNum[it.title] = i + 1; });
     });
 
+    // Podcast Walkthrough: every joke, quote and Easter egg tagged with a beat shows up under that beat.
+    var byBeat = {}, loose = [];
+    function wrow(label, color, summary, body, repeats) {
+      // repeats: the summary text is shown again in full when opened, so hide it then.
+      return '<details class="wrow' + (repeats ? ' rep' : '') + '"><summary><span class="tag" style="--t:' + color + '">' + esc(label) + '</span>' +
+        '<span class="wsum">' + summary + '</span><span class="chev" aria-hidden="true">›</span></summary>' +
+        '<div class="wbody">' + body + '</div></details>';
+    }
+    var rowsFor = {
+      jokes: function (it) {
+        return wrow("Joke", JOKE_COLOR, esc(it.title),
+          (it.confirmed === false ? '<p><span class="flag">Unconfirmed</span></p>' : '') + '<p>' + esc(it.text) + cites(it.src) + '</p>');
+      },
+      quotes: function (it) {
+        var first = (it.lines || [])[0] || { who: "", text: "" };
+        return wrow("Quote", QUOTE_COLOR, '<b>' + esc(first.who) + '</b> ' + esc(first.text),
+          (it.context ? '<p class="qctx">' + esc(it.context) + '</p>' : '') +
+          (it.lines || []).map(function (l) { return '<p><b class="who">' + esc(l.who) + '</b> ' + esc(l.text) + '</p>'; }).join("") +
+          '<p>' + cites(it.src) + '</p>', true);
+      },
+      eggs: function (it) {
+        return wrow(it.tag || "Easter egg", TAG_COLORS[it.tag] || "#5B6B85", esc(it.text),
+          ((it.time || it.confirmed === false) ? '<p>' + (it.time ? '<span class="time">' + esc(it.time) + '</span> ' : '') +
+            (it.confirmed === false ? '<span class="flag">Unconfirmed</span>' : '') + '</p>' : '') +
+          '<p>' + esc(it.text) + cites(it.src) + '</p>', true);
+      }
+    };
+    ["jokes", "quotes", "eggs"].forEach(function (id) {
+      ep.sections.forEach(function (sec) {
+        if (sec.id !== id) return;
+        var items = sec.items.slice();
+        if (id === "eggs") items.sort(function (a, b) { return EGG_ORDER.indexOf(a.tag) - EGG_ORDER.indexOf(b.tag); });
+        items.forEach(function (it) {
+          var row = rowsFor[id](it);
+          if (it.beat) (byBeat[it.beat] = byBeat[it.beat] || []).push(row); else loose.push(row);
+        });
+      });
+    });
+    function walkthroughHTML(sec) {
+      var n = 0;
+      var html = '<ol class="beatlist">' + sec.items.map(function (b) {
+        if (b.act) return '<li class="act">' + esc(b.act) + '</li>';
+        n += 1;
+        var rows = byBeat[n] || [];
+        return '<li class="beat"><p>' + esc(b.text) + cites(b.src) + '</p>' +
+          (rows.length ? '<div class="wrows">' + rows.join("") + '</div>' : '') + '</li>';
+      }).join("") + '</ol>';
+      if (loose.length) {
+        html += '<details class="sub"><summary><h4>Not tied to a scene</h4><span class="n">' + loose.length +
+          '</span><span class="chev" aria-hidden="true">›</span></summary><div class="wrows loose">' + loose.join("") + '</div></details>';
+      }
+      return html;
+    }
+
     // Credits on one compact line (the air date sits under the title).
     var credits = [];
     if (ep.writer) credits.push('<span><b>Written by</b> ' + esc(ep.writer) + '</span>');
@@ -136,30 +192,19 @@
               return '<p><b class="who">' + esc(l.who) + '</b> ' + esc(l.text) + '</p>';
             }).join("") + '</blockquote>' + cites(it.src) + '</figure></li>';
         }).join("") + '</ul>';
+      } else if (sec.style === "walkthrough") {
+        body += walkthroughHTML(sec);
       } else if (sec.style === "prose") {
         body += '<div class="prose">' + sec.items.map(function (it) { return '<p>' + esc(it.text) + cites(it.src) + '</p>'; }).join("") + '</div>';
-        if (sec.beats && sec.beats.length) {
-          // Beat by beat: the running order, with act breaks and links to the Best Jokes that happen in each beat.
-          var nBeats = sec.beats.filter(function (b) { return b.text; }).length;
-          body += '<details class="sub beats"><summary><h4>Beat by beat</h4><span class="n">' + nBeats +
-            '</span><span class="chev" aria-hidden="true">›</span></summary><ol class="beatlist">' +
-            sec.beats.map(function (b) {
-              if (b.act) return '<li class="act">' + esc(b.act) + '</li>';
-              var links = (b.jokes || []).filter(function (t) { return jokeNum[t]; }).map(function (t) {
-                return '<button type="button" class="jlink" data-joke="' + jokeNum[t] + '" aria-label="Best Jokes: ' + esc(t) + '">Joke ' + jokeNum[t] + '</button>';
-              }).join("");
-              return '<li class="beat"><p>' + esc(b.text) + cites(b.src) + (links ? '<span class="jlinks">' + links + '</span>' : '') + '</p></li>';
-            }).join("") + '</ol></details>';
-        }
       } else if (sec.style === "steps") {
         body += '<ol class="steps">' + sec.items.map(function (it) { return '<li>' + esc(it.text) + cites(it.src) + '</li>'; }).join("") + '</ol>';
       } else if (sec.id === "eggs") {
         // One drop-down per label, in a fixed order; items keep episode order inside each.
         var groups = {};
         sec.items.forEach(function (it) { var k = it.tag || "Other"; (groups[k] = groups[k] || []).push(it); });
-        var order = EGG_ORDER.filter(function (k) { return groups[k]; })
+        var tagOrder = EGG_ORDER.filter(function (k) { return groups[k]; })
           .concat(Object.keys(groups).filter(function (k) { return EGG_ORDER.indexOf(k) < 0; }));
-        body += order.map(function (k) {
+        body += tagOrder.map(function (k) {
           return '<details class="sub" style="--t:' + (TAG_COLORS[k] || "#5B6B85") + '"><summary><span class="dot" aria-hidden="true"></span><h4>' +
             esc(EGG_PLURAL[k] || k) + '</h4><span class="n">' + groups[k].length + '</span><span class="chev" aria-hidden="true">›</span></summary>' +
             itemsHTML(groups[k], false) + '</details>';
@@ -167,7 +212,12 @@
       } else {
         body += itemsHTML(sec.items, true);
       }
-      html += card(sec.title, sec.style === "prose" ? null : sec.items.length, body, "", sec.id);
+      var count = sec.style === "prose" ? null
+        : sec.style === "walkthrough" ? sec.items.filter(function (b) { return b.text; }).length
+        : sec.items.length;
+      html += card(sec.title, count, body, sec.style === "walkthrough" ? " walk" : "", sec.id);
+      // Everything after the walkthrough is the index: the same notes, sorted by type.
+      if (sec.style === "walkthrough") html += '<h2 class="index-h">Index</h2>';
     });
 
     return html + card("Sources", order.length, '<ol class="srclist">' + order.map(function (k) {
@@ -262,17 +312,6 @@
   });
   if (darkMQ && darkMQ.addEventListener) darkMQ.addEventListener("change", applyTheme);
   applyTheme();
-
-  document.addEventListener("click", function (e) {
-    var btn = e.target.closest(".jlink");
-    if (!btn) return;
-    var scope = btn.closest(".guide, .epbody") || document;
-    var jokes = scope.querySelector('details[data-sec="jokes"]');
-    if (!jokes) return;
-    jokes.open = true;
-    var li = jokes.querySelector('li[data-joke="' + btn.getAttribute("data-joke") + '"]');
-    if (li) li.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
 
   function route() {
     var m = location.hash.match(/^#\/ep\/(s\d{2}e\d{2})$/);

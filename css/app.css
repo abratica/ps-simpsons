@@ -160,20 +160,29 @@ main { max-width: 640px; margin: 0 auto; padding: 16px 16px 40px; }
 .sub[open] > summary .chev { transform: rotate(90deg); }
 .sub .items { padding: 0 12px 6px; }
 .sub .items li:first-child { border-top: 1px solid var(--rule); }
-/* Beat by beat (inside Plot) */
-.beats { margin-top: 6px; }
-.beats summary h4 { font-size: 15px; font-weight: 700; }
-.beatlist { list-style: none; margin: 0; padding: 0 12px 8px; counter-reset: beat; }
-.beatlist .beat { counter-increment: beat; position: relative; padding: 9px 0 9px 30px; border-top: 1px solid var(--rule); }
-.beatlist .beat::before { content: counter(beat); position: absolute; left: 0; top: 10px; width: 22px; text-align: right; font: 700 13px var(--sans); color: var(--label); }
-.beatlist .beat p { margin: 0; font-size: 15px; line-height: 1.5; }
+/* Podcast Walkthrough */
+.beatlist { list-style: none; margin: 0; padding: 0; counter-reset: beat; }
+.beatlist .beat { counter-increment: beat; position: relative; padding: 10px 0 10px 30px; border-top: 1px solid var(--rule); }
+.beatlist .beat:first-child { border-top: 0; padding-top: 4px; }
+.beatlist .beat::before { content: counter(beat); position: absolute; left: 0; top: 11px; width: 22px; text-align: right; font: 700 13px var(--sans); color: var(--label); }
+.beatlist .beat:first-child::before { top: 5px; }
+.beatlist .beat > p { margin: 0; font-size: 15.5px; line-height: 1.5; }
 .beatlist .act { padding: 8px 0 6px; border-top: 1px solid var(--rule); font-size: 10.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--label); text-align: center; }
-.jlinks { margin-left: 4px; white-space: nowrap; }
-.jlink {
-  display: inline-flex; align-items: center; height: 20px; margin: 0 0 0 4px; padding: 0 7px; vertical-align: 1px;
-  border: 0; border-radius: 999px; background: var(--brand); color: var(--brand-ink); font: 800 10.5px var(--sans); cursor: pointer;
-}
-.jokes li { scroll-margin-top: 12px; }
+.wrows { margin-top: 8px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+.wrows.loose { padding: 0 12px 12px; margin-top: 0; }
+.wrow { min-width: 0; background: var(--soft); border-radius: 10px; }
+.wrow > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px; }
+.wrow > summary::-webkit-details-marker { display: none; }
+.wrow .tag { flex: none; font-size: 10.5px; padding: 2px 8px; }
+.wsum { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 14px; }
+.wrow.rep[open] > summary .wsum { visibility: hidden; }
+.wrow[open] > summary .chev { transform: rotate(90deg); }
+.wbody { padding: 0 12px 10px; }
+.wbody p { margin: 0 0 6px; font-size: 15px; line-height: 1.5; }
+.wbody p:last-child { margin-bottom: 0; }
+.wbody .qctx { margin-bottom: 4px; }
+.wbody .who { font: 400 15px var(--display); letter-spacing: .02em; }
+.index-h { margin: 22px 4px 10px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--label); }
 /* Best Jokes */
 .jokes { list-style: none; margin: 0; padding: 0; counter-reset: joke; }
 .jokes li { position: relative; counter-increment: joke; padding: 12px 0 12px 36px; border-top: 1px solid var(--rule); }
